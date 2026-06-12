@@ -1,0 +1,37 @@
+{
+  "name": "3project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "dev:server": "tsx watch index.js",
+  "dev:browser": "browser-sync start --proxy 'localhost:4200' --files 'views/**/*.ejs, public/**/*'",
+  "dev": "concurrently \"npm run dev:server\" \"npm run dev:browser\""
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.3",
+    "@types/pg": "^8.20.0",
+    "browser-sync": "^3.0.4",
+    "concurrently": "^10.0.3",
+    "prisma": "^7.8.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "compression": "^1.8.1",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "helmet": "^8.2.0",
+    "pg": "^8.21.0"
+  }
+}

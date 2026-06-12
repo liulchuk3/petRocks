@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+        <h1>Welcome to the <br> <span>Pet Rocks Store</span></h1>
+        <p class="home-p-description1">Here you can find your perfect little rock-solid friend! Our team and our users carefully select and decorate each rock to make it truly special and friendly-feeling pet that you'll love.</p>
+
+        <a href="#catalog" class="catalog-heading">Catalog</a>
+
+        <a href="" class="collection-a"><h2 class="collection-h">Our Hits</h2></a>
+        <div class="rocks-container">
+            <% rocks.forEach(rock => { %>
+                <div class="rock-card">
+                    <a href="/product/<%= rock.id %>" class="rock-card-image-link">
+                        <img src="<%= rock.imageUrl %>" alt="<%= rock.name %>">
+                    </a>
+                    <h2>
+                        <a href="/product/<%= rock.id %>" class="rock-card-title-link"><%= rock.name %></a>
+                    </h2>
+                    <!-- <p><%= rock.description %></p> -->
+                    <p class="price">$<%= rock.price %></p>
+                    <button class="add-to-cart-btn" data-rock-id="<%= rock.id %>">Add to Cart</button>
+                </div>
+            <% }) %>
+        </div>
+
+        <div class="home-p-description2">
+            <p>Discover our unique, low-maintenance pet rocks! Perfect as quirky home decor or easy companions, browse our catalog to find your ideal rock friend today.</p>
+        </div>
+
+        <a href="" class="collection-a"><h2 class="collection-h">New Rocks</h2></a>
+        <div class="rocks-container">
+            <% rocks.forEach(rock => { %>
+                <div class="rock-card">
+                    <a href="/product/<%= rock.id %>" class="rock-card-image-link">
+                        <img src="<%= rock.imageUrl %>" alt="<%= rock.name %>">
+                    </a>
+                    <h2>
+                        <a href="/product/<%= rock.id %>" class="rock-card-title-link"><%= rock.name %></a>
+                    </h2>
+                    <!-- <p><%= rock.description %></p> -->
+                    <p class="price">$<%= rock.price %></p>
+                    <button class="add-to-cart-btn" data-rock-id="<%= rock.id %>">Add to Cart</button>
+                </div>
+            <% }) %>
+        </div>
+
+        <a href="#catalog" class="catalog-heading">Catalog</a>
+
+        <div class="terms">
+                <p class="terms-text">Pay after delivery</p>
+                <p class="terms-text">Free shipping on orders over $50</p>
+                <p class="terms-text">30-day money-back guarantee</p>
+                <p class="terms-text">Quality assurance</p>
+        </div>
+        
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js"></script>
+<script src="/js/home.js"></script>
+</body>
+</html>

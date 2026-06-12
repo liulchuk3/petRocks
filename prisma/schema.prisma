@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  sku         String   @unique                  // Унікальний артикул
+  slug        String   @unique                  // Для красивих URL (SEO)
+  name        String
+  shortDesc   String
+  description String                            // З малої літери
+
+  price       Decimal  @db.Decimal(10, 2)
+  discountPrice Decimal? @db.Decimal(10, 2)
+  
+  owner       String  // Власник товару (для аукціону)
+  stock       Int      @default(0)              // Кількість на складі
+  isActive    Boolean  @default(true)           // Чи відображати на сайті
+  imageUrl    String
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt              // Автоматично оновлюється при змінах
+}
