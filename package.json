@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-  "dev:server": "tsx watch src/server.ts", 
-  "dev:browser": "browser-sync start --proxy localhost:4200 --files views/**/*.ejs public/**/*",
-  "dev": "concurrently \"npm run dev:server\" \"npm run dev:browser\""
-},
+    "dev:server": "tsx watch src/server.ts",
+    "dev:browser": "browser-sync start --proxy localhost:4200 --files views/**/*.ejs public/**/*",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:browser\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -32,6 +32,9 @@
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "helmet": "^8.2.0",
+    "i18next": "^26.3.1",
+    "i18next-fs-backend": "^2.6.6",
+    "i18next-http-middleware": "^3.9.7",
     "pg": "^8.21.0"
   }
 }

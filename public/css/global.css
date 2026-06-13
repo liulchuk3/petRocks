@@ -16,6 +16,8 @@
     --button-border-color: rgb(99, 163, 9);
     --button-hover-bg-color: rgb(84, 140, 8);
     --catalog-bg-color: rgb(255, 255, 255);
+    --sing-in-link-bg-color: rgba(0, 0, 0, 0.1);
+    --sing-in-link-bg-color-hover: rgba(0, 0, 0, 0.2);
 }
 :root .site-logo {
   content: url("/images/petRocksLogoLight.png");
@@ -23,7 +25,7 @@
 
 :root.dark {
     --header-bg-color: rgb(26, 34, 48);
-    --body-bg-color: rgb(27, 36, 56);
+    --body-bg-color: rgb(27, 36, 56);   
     --sidebar-bg-color: rgb(30, 41, 59);
     --footer-bg-color: rgb(26, 34, 48);
     --text-color: rgb(203, 213, 225);
@@ -36,6 +38,8 @@
     --button-border-color: rgb(147, 184, 96);
     --button-hover-bg-color: rgb(122, 152, 79);
     --catalog-bg-color: rgb(39, 49, 66);
+    --sing-in-link-bg-color: rgba(255, 255, 255, 0.1);
+    --sing-in-link-bg-color-hover: rgba(255, 255, 255, 0.2);
 }
 :root.dark .site-logo {
   content: url("/images/petRocksLogoDarkV2.png");
@@ -227,14 +231,40 @@ aside .sidebar-sidebar-close-btn {
     top: 14px;
     right: 20px;
 }
-
-aside h2 {
-    margin-top: 15px;
-    margin-left: 0px;
-    padding: 0;
-    font-size: 32px;
-    font-weight: bold;
+.sidebar-sign-in{
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: var(--sing-in-link-bg-color);
+    width: fit-content;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 24px;
+    margin: 15px 0 15px 0;
     color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.sidebar-sign-in:hover {
+    background-color: var(--sing-in-link-bg-color-hover);
+    color: var(--text-color-hover);
+    transition: all 0.1s ease;
+}
+.sidebar-sign-in::before{
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+    -webkit-mask-image: url('/images/profile-icon.svg');
+    mask-image: url('/images/profile-icon.svg');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    background-color: var(--text-color);
 }
 .sidebar-language-label {
     margin-top: 10px;

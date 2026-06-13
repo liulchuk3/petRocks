@@ -51,4 +51,8 @@ const router = Router();
     res.render("pages/index", { rocks });
     });
 
+    router.get("/authorization", (req, res) => {
+        res.render("pages/authorization");
+    });
+
 export default router;
