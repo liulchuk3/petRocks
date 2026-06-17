@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/authorization.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+        <h1 class="authorization-title"><%= t('authorization.sign-up-heading') %></h1>
+
+        <form id="registerForm" class="authorization-form">
+            <input type="email" id="email" name="email" placeholder="<%= t('authorization.email-placeholder') %>" required>
+            <input type="password" id="password" name="password" placeholder="<%= t('authorization.password-placeholder') %>" required minlength="8">
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="<%= t('authorization.password-confirmation-placeholder') %>" required>
+            <p id="formError" class="form-error" style="display: none;"></p>
+            <button type="submit"><%= t('authorization.sign-up-button') %></button>
+        </form>
+        <div class="authorization-sign-up">
+            <p><%= t('authorization.already-have-account') %></p>
+            <a href="/<%= currentLng %>/authorization-sign-in"><%= t('authorization.sign-in-link') %></a>
+        </div>
+        
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js"></script>
+<script src="/js/register.js"></script>
+</body>
+</html>

@@ -1,58 +1,28 @@
 import { Router } from "express";
+import { AuthRequest, requireAuth } from "../middleware/auth.middleware.js";
+import { optionalAuth } from "../middleware/optional.middleware.js";
 
 const router = Router();
 
-    router.get("/", (req, res) => {
-        const rocks = [
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Rocky",
-                description: "A friendly rock loves to be petted",
-                price: 9.99,
-                id: 1
-            },
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Pebbles",
-                description: "A small rock that enjoys sunny days",
-                price: 7.99,
-                id: 2
-            },
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Granite",
-                description: "A sturdy rock that can withstand any weather",
-                price: 12.99,
-                id: 3
-            },
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Boulder",
-                description: "A massive rock dominates the landscape",
-                price: 19.99,
-                id: 4
-            },
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Slate",
-                description: "A smooth rock loves to be stacked",
-                price: 8.99,
-                id: 5
-            },
-            {
-                imageUrl: "/images/testRock1.png",
-                name: "Marble",
-                description: "A polished rock shines in the sunlight",
-                price: 14.99,
-                id: 6
-            }
-        ]
-
-    res.render("pages/index", { rocks });
+    router.get("/", optionalAuth, (req: AuthRequest, res) => {
+        res.render("pages/index", {
+        currentLng: req.language,
+        userId: req.userId ?? null, // є — авторизований, null — гість
+            items: [
+                { id: 1, name: "Rock 1", price: 10.99, imageUrl: "/images/testRock1.png" },
+                { id: 2, name: "Rock 2", price: 15.49, imageUrl: "/images/testRock1.png" },
+            ]
+    });
     });
 
-    router.get("/authorization", (req, res) => {
-        res.render("pages/authorization");
+    router.get("/authorization-sign-in", (req, res) => {
+        const currentLng = req.language;
+        res.render("pages/authorization-sign-in", { currentLng });
+    });
+
+    router.get("/authorization-sign-up", (req, res) => {
+        const currentLng = req.language;
+        res.render("pages/authorization-sign-up", { currentLng });
     });
 
 export default router;

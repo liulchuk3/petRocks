@@ -44,3 +44,26 @@ themeBtn.addEventListener('click', () => {
   }
 });
 
+const languageSelect = document.getElementById('language');
+
+languageSelect.addEventListener('change', () => {
+    const selectedLanguage = languageSelect.value; // 'uk' або 'en'
+    
+    // 1. Оновлюємо куку на нову мову (на 1 рік), щоб сервер її запам'ятав
+    document.cookie = `i18next=${selectedLanguage}; path=/; max-age=31536000`;
+    
+    // 2. Отримуємо поточний шлях сторінки (наприклад, "/uk/about" або "/uk/contacts")
+    const currentPath = window.location.pathname;
+    
+    // 3. Формуємо новий шлях.
+    // Якщо користувач був не на головній, ми замінюємо старий префікс мови на новий.
+    if (currentPath === '/' || currentPath === '/uk' || currentPath === '/en') {
+        // Якщо це була головна — просто кидаємо на префікс
+        window.location.href = `/${selectedLanguage}`;
+    } else {
+        // Якщо це була внутрішня сторінка (наприклад, "/uk/about"),
+        // відрізаємо старий префікс і додаємо новий: "/en/about"
+        const cleanPath = currentPath.replace(/^\/(uk|en)/, '');
+        window.location.href = `/${selectedLanguage}${cleanPath}`;
+    }
+});

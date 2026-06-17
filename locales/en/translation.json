@@ -1,0 +1,42 @@
+{
+    "global": {
+        "sign-in": "Sign In",
+        "language": "Language",
+        "navigation-heading": "Navigation",
+        "navigation": {
+            "catalog": "Catalog",
+            "home": "Home",
+            "about": "About",
+            "contact": "Contact"
+        },
+        "footer": {
+            "all-rights-reserved" : "All rights reserved."
+        }
+    },
+    "index": {
+        "h1-part-one": "Welcome to the",
+        "h1-part-two": "Pet Rocks Store",
+        "p-description": "Here you can find your perfect little rock-solid friend! Our team and our users carefully select and decorate each rock to make it truly special and friendly-feeling pet that you'll love.",
+        "catalog-heading": "Catalog",
+        "our-hits-heading": "Our Hits",
+        "p-description2": "Discover our unique, low-maintenance pet rocks! Perfect as quirky home decor or easy companions, browse our catalog to find your ideal rock friend today.",
+        "new-arrivals-heading": "New Rocks",
+        "pay-after-delivery": "Pay after delivery",
+        "free-shipping": "Free shipping on orders over $50",
+        "money-back-guarantee": "30-day money-back guarantee",
+        "quality-assurance": "Quality assurance"
+    },
+    "authorization": {
+        "sign-in-heading": "Sign In",
+        "sign-up-heading": "Sign Up",
+        "email-placeholder": "Email",
+        "password-placeholder": "Password",
+        "password-confirmation-placeholder": "Confirm Password",
+        "sign-in-button": "Sign In",
+        "sign-up-button": "Sign Up",
+        "dont-have-account": "Don't have an account?",
+        "already-have-account": "Already have an account?",
+        "sign-up-link": "Sign Up",
+        "sign-in-link": "Sign In"
+    }
+}

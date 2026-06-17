@@ -12,55 +12,79 @@
 
     <main>
         <h1><%= t('index.h1-part-one') %> <br> <span><%= t('index.h1-part-two') %></span></h1>
-        <p class="home-p-description1">Here you can find your perfect little rock-solid friend! Our team and our users carefully select and decorate each rock to make it truly special and friendly-feeling pet that you'll love.</p>
+        <p class="home-p-description1"><%= t('index.p-description') %></p>
 
-        <a href="#catalog" class="catalog-heading">Catalog</a>
+        <a href="#catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
 
-        <a href="" class="collection-a"><h2 class="collection-h">Our Hits</h2></a>
-        <div class="rocks-container">
-            <% rocks.forEach(rock => { %>
-                <div class="rock-card">
-                    <a href="/product/<%= rock.id %>" class="rock-card-image-link">
-                        <img src="<%= rock.imageUrl %>" alt="<%= rock.name %>">
-                    </a>
-                    <h2>
-                        <a href="/product/<%= rock.id %>" class="rock-card-title-link"><%= rock.name %></a>
-                    </h2>
-                    <!-- <p><%= rock.description %></p> -->
-                    <p class="price">$<%= rock.price %></p>
-                    <button class="add-to-cart-btn" data-rock-id="<%= rock.id %>">Add to Cart</button>
-                </div>
-            <% }) %>
+        <a href="" class="collection-a"><h2 class="collection-h"><%= t('index.our-hits-heading') %></h2></a>
+        <div class="rocks-wrapper">
+            <button class="scroll-btn scroll-btn-top-left" aria-label="Scroll left">&#8249;</button>
+
+            <div class="rocks-container top-rocks-container">
+                <% items.forEach(item => { %>
+                    <div class="rock-card">
+                        <a href="/product/<%= item.id %>" class="rock-card-image-link">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                        </a>
+                        <h2>
+                            <a href="/product/<%= item.id %>" class="rock-card-title-link"><%= item.name %></a>
+                        </h2>
+                        <p class="price">$<%= item.price %></p>
+                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
+                    </div>
+                <% }) %>
+            </div>
+
+            <button class="scroll-btn scroll-btn-top-right" aria-label="Scroll right">&#8250;</button>
         </div>
 
         <div class="home-p-description2">
-            <p>Discover our unique, low-maintenance pet rocks! Perfect as quirky home decor or easy companions, browse our catalog to find your ideal rock friend today.</p>
+            <p><%= t('index.p-description2') %></p>
         </div>
 
-        <a href="" class="collection-a"><h2 class="collection-h">New Rocks</h2></a>
-        <div class="rocks-container">
-            <% rocks.forEach(rock => { %>
-                <div class="rock-card">
-                    <a href="/product/<%= rock.id %>" class="rock-card-image-link">
-                        <img src="<%= rock.imageUrl %>" alt="<%= rock.name %>">
-                    </a>
-                    <h2>
-                        <a href="/product/<%= rock.id %>" class="rock-card-title-link"><%= rock.name %></a>
-                    </h2>
-                    <!-- <p><%= rock.description %></p> -->
-                    <p class="price">$<%= rock.price %></p>
-                    <button class="add-to-cart-btn" data-rock-id="<%= rock.id %>">Add to Cart</button>
-                </div>
-            <% }) %>
+        <a href="" class="collection-a"><h2 class="collection-h"><%= t('index.new-arrivals-heading') %></h2></a>
+        <div class="rocks-wrapper">
+            <button class="scroll-btn scroll-btn-bottom-left" aria-label="Scroll left">&#8249;</button>
+
+            <div class="rocks-container bottom-rocks-container">
+                <% items.forEach(item => { %>
+                    <div class="rock-card">
+                        <a href="/product/<%= item.id %>" class="rock-card-image-link">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                        </a>
+                        <h2>
+                            <a href="/product/<%= item.id %>" class="rock-card-title-link"><%= item.name %></a>
+                        </h2>
+                        <p class="price">$<%= item.price %></p>
+                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
+                    </div>
+                <% }) %>
+            </div>
+
+            <button class="scroll-btn scroll-btn-bottom-right" aria-label="Scroll right">&#8250;</button>
         </div>
 
-        <a href="#catalog" class="catalog-heading">Catalog</a>
+        <a href="#catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
+
+        <hr>
 
         <div class="terms">
-                <p class="terms-text">Pay after delivery</p>
-                <p class="terms-text">Free shipping on orders over $50</p>
-                <p class="terms-text">30-day money-back guarantee</p>
-                <p class="terms-text">Quality assurance</p>
+            <div class="terms-div">
+                <p class="terms-img terms-icon-1"></p>
+                <p class="terms-text"><%= t('index.pay-after-delivery') %></p>
+            </div>
+            <div class="terms-div">
+                <p class="terms-img terms-icon-2"></p>
+                <p class="terms-text"><%= t('index.free-shipping') %></p>
+            </div>
+            <div class="terms-div">
+                <p class="terms-img terms-icon-3"></p>
+                <p class="terms-text"><%= t('index.money-back-guarantee') %></p>
+            </div>
+            <div class="terms-div">
+                <p class="terms-img terms-icon-4"></p>
+                <p class="terms-text"><%= t('index.quality-assurance') %></p>
+            </div>
         </div>
         
     </main>

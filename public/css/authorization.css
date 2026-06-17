@@ -1,18 +1,56 @@
+main{
+    height: 100%;
+    background-color: var(--header-bg-color);
+    padding: 150px 0 0 0;
+}
+header{
+    background-color: var(--header-bg-color);
+    box-shadow: none;
+}
+body{
+    background-color: var(--header-bg-color);
+}
 .authorization-title{
-    text-align: center; 
-    margin: 50px 0 10px 0;
-    padding: 0;
-    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: center;     
+    font-size: 24px;
 }
-.authorization-description{
-    text-align: center; 
-    width: 80%;
-    margin: 0 auto 30px auto;
-    padding: 0;
-    font-size: 14px;
-}
-form{
+.authorization-form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
+}
+.authorization-form input{
+    width: 200px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    color: var(--text-color);
+    background-color: var(--header-bg-color);
+}
+.authorization-form button{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--text-color-hover);
+    color: var(--header-bg-color);
+    cursor: pointer;
+}
+.authorization-form button:hover{
+    background-color: var(--text-color);
+}
+.authorization-sign-up{
+    margin-top: 20px;
+}
+.authorization-sign-up p{
+    text-align: center;
+    margin: 0;
+}
+.authorization-sign-up a{
+    color: var(--text-color);
+    text-align: center;
+    display: block;
+    margin-top: 5px;
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/authorization.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+        <h1 class="authorization-title"><%= t('authorization.sign-in-heading') %></h1>
+
+        <form id="loginForm" class="authorization-form">
+            <input type="email" id="email" name="email" placeholder="<%= t('authorization.email-placeholder') %>" aria-label="<%= t('authorization.email-placeholder') %>" required>
+            <input type="password" id="password" name="password" placeholder="<%= t('authorization.password-placeholder') %>" aria-label="<%= t('authorization.password-placeholder') %>" required>
+            <button type="submit"><%= t('authorization.sign-in-button') %></button>
+        </form>
+        <div class="authorization-sign-up">
+            <p><%= t('authorization.dont-have-account') %></p>
+            <a href="/<%= currentLng %>/authorization-sign-up"><%= t('authorization.sign-up-link') %></a>
+        </div>
+        
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

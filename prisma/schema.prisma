@@ -12,22 +12,41 @@ datasource db {
   provider = "postgresql"
 }
 
-model Product {
+model Items {
   id          Int      @id @default(autoincrement())
-  sku         String   @unique                  // Унікальний артикул
-  slug        String   @unique                  // Для красивих URL (SEO)
+  sku         String   @unique
+  slug        String   @unique
   name        String
   shortDesc   String
-  description String                            // З малої літери
+  description String
 
   price       Decimal  @db.Decimal(10, 2)
   discountPrice Decimal? @db.Decimal(10, 2)
-  
-  owner       String  // Власник товару (для аукціону)
-  stock       Int      @default(0)              // Кількість на складі
-  isActive    Boolean  @default(true)           // Чи відображати на сайті
+
+  ownerId     String                            // ← замінили owner на ownerId
+  owner       User     @relation(fields: [ownerId], references: [id])  // ← зв'язок
+
+  stock       Int      @default(0)
+  isActive    Boolean  @default(true)
   imageUrl    String
-  
+
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt              // Автоматично оновлюється при змінах
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  refreshTokens RefreshToken[]
+  items         Items[]                          // ← додали зворотній зв'язок
+  createdAt     DateTime       @default(now())
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }

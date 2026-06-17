@@ -51,11 +51,12 @@
 }
 
 body{
-    background-color: var(--body-bg-color);
+    /* background-color: var(--body-bg-color); */
     color: var(--text-color);
     margin: 0;
     padding: 0;
     font-family: 'Nunito', sans-serif;
+    background-color: var(--body-bg-color);
 }
 /* GLOBAL STYLES ===================================== */
 /* HEADER STYLES ===================================== */
@@ -366,3 +367,15 @@ footer p {
     font-size: 18px;
 }
 /* FOOTER STYLES ==================================== */
+
+
+@media (min-width: 1200px) {
+    /* MAIN STYLES ==================================== */
+    main{
+        width: 1200px;
+        margin: 0px auto;
+        padding: 0px;
+        min-height: 100vh;
+    }
+/* MAIN STYLES ==================================== */
+}
