@@ -1,17 +1,14 @@
 import { Router } from "express";
-import { AuthRequest, requireAuth } from "../middleware/auth.middleware.js";
-import { optionalAuth } from "../middleware/optional.middleware.js";
+import { AuthRequest, optionalAuth, requireAuth } from "../middleware/auth.middleware.js";
+import { getUserData } from "../services/getUserData.service.js"; // Уявна функція, яка дістає дані користувача за userId
 
 const router = Router();
 
-    router.get("/", optionalAuth, (req: AuthRequest, res) => {
+    router.get("/", optionalAuth, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getUserData(req.userId) : null; // Уявна функція, яка дістає дані користувача за userId
         res.render("pages/index", {
         currentLng: req.language,
-        userId: req.userId ?? null, // є — авторизований, null — гість
-            items: [
-                { id: 1, name: "Rock 1", price: 10.99, imageUrl: "/images/testRock1.png" },
-                { id: 2, name: "Rock 2", price: 15.49, imageUrl: "/images/testRock1.png" },
-            ]
+        userData: userData ?? null, // дані користувача або null, якщо гість
     });
     });
 
@@ -24,5 +21,5 @@ const router = Router();
         const currentLng = req.language;
         res.render("pages/authorization-sign-up", { currentLng });
     });
-
+    
 export default router;

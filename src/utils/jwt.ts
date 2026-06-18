@@ -10,7 +10,8 @@ export const signRefresh = (userId: string) =>
   jwt.sign({ userId }, REFRESH_SECRET, { expiresIn: '7d' });
 
 export const verifyAccess = (token: string) =>
-  jwt.verify(token, SECRET) as { userId: string };
-
+  jwt.verify(token, SECRET) as { userId: string }; // Повертає payload з userId, якщо токен валідний, 
+                                                   // або викидає помилку, якщо токен прострочений або недійсний
 export const verifyRefresh = (token: string) =>
-  jwt.verify(token, REFRESH_SECRET) as { userId: string };
+  jwt.verify(token, REFRESH_SECRET) as { userId: string }; // Повертає payload з userId, якщо токен валідний, 
+                                                           // або викидає помилку, якщо токен прострочений або недійсний

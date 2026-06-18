@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 
   const hash = await bcrypt.hash(password, 12);
   const user = await prisma.user.create({
-    data: { email, password: hash },  // Створюємо нового користувача в БД
+    data: { email, password: hash, username: email },  // Створюємо нового користувача в БД
   });
 
   const accessToken = signAccess(user.id); // Створюємо access токен для нового користувача з jwt утиліти

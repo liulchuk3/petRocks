@@ -1,3 +1,32 @@
+async function apiFetch(url, options = {}) {
+  const config = {
+    ...options,
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+  };
+
+  if (config.body && typeof config.body === 'object') {
+    config.body = JSON.stringify(config.body);
+  }
+
+  let res = await fetch(url, config);
+
+  if (res.status === 401) {
+    const refreshRes = await fetch('/auth/refresh', { method: 'POST', credentials: 'include' });
+
+    if (refreshRes.ok) {
+      res = await fetch(url, config);
+    } else {
+      window.location.href = '/login';
+    }
+  }
+
+  return res;
+}
+
 document.getElementById('header-sidebar-open-btn').addEventListener('click', () => {
     document.querySelector('.sidebar').classList.add('open-sidebar');
     document.querySelector('.overlay').classList.add('open-overlay');
