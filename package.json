@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "dev:server": "tsx watch src/server.ts",
-    "dev:browser": "browser-sync start --proxy localhost:4200 --files views/**/*.ejs public/**/*",
+    "dev:server": "tsx watch src/server.ts --watch locales",
+    "dev:browser": "browser-sync start --proxy localhost:4200 --files views/**/*.ejs public/**/* locales/**/*",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:browser\"",
     "save": "git add . && git commit -m 'checkpoint'"
   },

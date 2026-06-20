@@ -38,14 +38,7 @@ form.addEventListener('submit', async (e) => {
     });
 
     const data = await res.json();
-
-    // if (!res.ok) {
-    //   return showError(data.error || 'Помилка реєстрації');
-    // }
-
-    // // Успіх — редіректимо
-    // window.location.href = '/<%= currentLng %>';
-
+    
     if (data.success) {
       const lang = getCookie('i18next') || 'UK'; // Отримуємо мову з куки або встановлюємо за замовчуванням 'UK'
       window.location.href = '/' + lang;

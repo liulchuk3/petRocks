@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+
+        <div class="profile-container">
+            <% if (userData.username) { %>
+                <h1 class="profile-h"><%= t("profile.hello") %>, <%= userData.username %>!</h1>
+            <% }
+            else { %>
+                <h1 class="profile-h"><%= t("profile.hello-v2") %></h1>
+            <% } %>
+            
+            <div class="profile-info">
+                <img class="profile-picture" src= <% if (userData.profilePicture) { %> "<%= userData.profilePicture %>" <% } else { %> "/images/default-avatar.svg" <% } %> 
+                alt="Profile Picture">
+                <div class="profile-details">
+                    <% if (userData.username) { %>
+                        <p><strong><%= t("profile.username") %>:</strong> <%= userData.username %></p>
+                    <% }
+                    else { %>
+                        <p><strong><%= t("profile.username") %>:</strong><a> <%= t("profile.no-username-link") %> </a></p>
+                    <% } %>
+                    <p><strong><%= t("profile.email") %>:</strong> <%= userData.email %></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js"></script>
+<script src="/js/profile.js"></script>
+</body>
+</html>

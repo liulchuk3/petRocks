@@ -20,12 +20,29 @@ async function apiFetch(url, options = {}) {
     if (refreshRes.ok) {
       res = await fetch(url, config);
     } else {
-      window.location.href = '/login';
+      const lang = getCookie('i18next') || 'uk'; // Отримуємо мову з куки або встановлюємо за замовчуванням 'uk'
+      window.location.href = '/' + lang;
     }
   }
 
   return res;
 }
+
+// Logout button handler
+const logoutBtn = document.getElementById('logout-btn');
+
+logoutBtn.addEventListener('click', async () => {
+  try {
+    const res = await apiFetch('/auth/logout', { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+      const lang = getCookie('i18next') || 'uk'; // Отримуємо мову з куки або встановлюємо за замовчуванням 'uk'
+      window.location.href = '/' + lang;
+    }
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
+});
 
 document.getElementById('header-sidebar-open-btn').addEventListener('click', () => {
     document.querySelector('.sidebar').classList.add('open-sidebar');

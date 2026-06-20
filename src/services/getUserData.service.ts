@@ -1,12 +1,25 @@
 import { prisma } from '../lib/prisma.js';
 
-export async function getUserData(userId: string) {
+export async function getShortUserData(userId: string) {
   return prisma.user.findUnique({
     where: { id: userId },
     select: {
       id: true,
       email: true,
-      // password НЕ вибираємо — він не повинен потрапляти в шаблон
+      username: true,
+      imageUrl: true,
+    },
+  });
+}
+
+export async function getFullUserData(userId: string) {
+  return prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      email: true,
+      username: true,
+      imageUrl: true,
     },
   });
 }

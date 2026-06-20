@@ -11,7 +11,8 @@
         },
         "footer": {
             "all-rights-reserved" : "All rights reserved."
-        }
+        },
+        "logout": "Logout"
     },
     "index": {
         "h1-part-one": "Welcome to the",
@@ -25,6 +26,13 @@
         "free-shipping": "Free shipping on orders over $50",
         "money-back-guarantee": "30-day money-back guarantee",
         "quality-assurance": "Quality assurance"
+    },
+    "profile": {
+        "hello": "Hello",
+        "hello-v2": "Welcome to your profile!",
+        "email": "Email",
+        "username": "Username",
+        "no-username-link": "Set Username"
     },
     "authorization": {
         "sign-in-heading": "Sign In",

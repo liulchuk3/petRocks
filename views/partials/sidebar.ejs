@@ -1,7 +1,16 @@
 <aside id="sidebar" class="sidebar">
         <button id="sidebar-sidebar-close-btn" class="sidebar-sidebar-close-btn">✖</button>
         
+        <% if (userData) { %>
+            <a href="/<%= currentLng %>/profile" class="sidebar-profile-link">
+                <!-- <img src="<%= userData.imageUrl || '/images/default-avatar.svg' %>" alt="User Avatar" class="sidebar-user-avatar">
+                <span class="sidebar-user-name"><%= userData.username || userData.email %></span> -->
+                <p class="sidebar-username-avatar"></p>
+                <p class="sidebar-username-name"><%= userData.username || userData.email %></p>
+            </a>
+        <% } else { %>
         <a href="/<%= currentLng %>/authorization-sign-in" class="sidebar-sign-in"><%= t('global.sign-in') %></a>
+        <% } %>
 
     <label for="language" class="sidebar-language-label"><%= t('global.language') %></label>
     <select id="language" name="language" class="sidebar-language-select">
@@ -16,6 +25,8 @@
         <a href="/<%= currentLng %>/about" class="sidebar-link"><%= t('global.navigation.about') %></a>
         <a href="/<%= currentLng %>/contact" class="sidebar-link"><%= t('global.navigation.contact') %></a>
     </nav>
+
+    <button id="logout-btn"><%= t('global.logout') %></button>
 </aside>
 
 <div id="overlay" class="overlay"></div>

@@ -16,6 +16,7 @@
         <form id="loginForm" class="authorization-form">
             <input type="email" id="email" name="email" placeholder="<%= t('authorization.email-placeholder') %>" aria-label="<%= t('authorization.email-placeholder') %>" required>
             <input type="password" id="password" name="password" placeholder="<%= t('authorization.password-placeholder') %>" aria-label="<%= t('authorization.password-placeholder') %>" required>
+            <p id="formError" class="form-error" style="display: none;"></p>
             <button type="submit"><%= t('authorization.sign-in-button') %></button>
         </form>
         <div class="authorization-sign-up">

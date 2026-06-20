@@ -12,9 +12,9 @@
         },
         "footer": {
             "all-rights-reserved" : "Всі права захищені."
-        }
+        },
+        "logout": "Вийти"
     },
-
     "index": {
         "h1-part-one": "Ласкаво просимо до",
         "h1-part-two": "Pet Rocks Store",
@@ -27,6 +27,13 @@
         "free-shipping": "Безкоштовна доставка для замовлень понад $50",
         "money-back-guarantee": "Гарантія повернення грошей протягом 30 днів",
         "quality-assurance": "Гарантія якості"
+    },
+    "profile": {
+        "hello": "Привіт",
+        "hello-v2": "Вітаємо у твоєму профілі!",
+        "email": "Електронна пошта",
+        "username": "Ім'я користувача",
+        "no-username-link": "Встановити ім'я користувача"
     },
     "authorization": {
         "sign-in-heading": "Увійти",

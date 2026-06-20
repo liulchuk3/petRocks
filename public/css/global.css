@@ -138,45 +138,33 @@ header div{
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-/* Загальні налаштування для обох іконок */
 .theme-circle-btn svg {
   position: absolute;
   width: 24px;
   height: 24px;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
 }
-/* Стартовий стан (Світла тема): Сонце видно, Місяць заховано */
 .sun-icon {
   opacity: 1;
   transform: rotate(0deg) scale(1);
-  color: #eab308; /* Теплий жовтий колір для сонця */
+  color: #eab308;
 }
 .moon-icon {
   opacity: 0;
   transform: rotate(90deg) scale(0);
 }
-
-/* ------------------------------------------- */
-/* СТАН ДЛЯ ТЕМНОЇ ТЕМИ (додається клас .dark) */
-/* ------------------------------------------- */
-
-/* Зміна фону самої кнопки в темному режимі */
 body.dark .theme-circle-btn {
   background-color: #1e293b;
   color: #f8fafc;
 }
-
-/* В темній темі ховаємо сонце з прокруткою */
 body.dark .sun-icon {
   opacity: 0;
   transform: rotate(-90deg) scale(0);
 }
-
-/* Показываємо місяць з прокруткою */
 body.dark .moon-icon {
   opacity: 1;
   transform: rotate(0deg) scale(1);
-  color: #38bdf8; /* Приємний блакитний колір для місяця */
+  color: #38bdf8;
 }
 
 /* HEADER STYLES ===================================== */
@@ -231,6 +219,48 @@ aside .sidebar-sidebar-close-btn {
     position: absolute;
     top: 14px;
     right: 20px;
+}
+.sidebar-profile-link{
+    height: 40px;
+    padding: 5px 10px;
+    margin: 13px 0 15px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-decoration: none;
+    border-radius: 8px;
+    background-color: var(--sing-in-link-bg-color);
+    width: fit-content;
+    font-size: 24px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.sidebar-username-avatar::before{
+    content: "";
+    display: inline-block;
+    position: relative;
+    left: 0px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    padding-right: 7px;
+    -webkit-mask-image: url('/images/profile-icon.svg');
+    mask-image: url('/images/profile-icon.svg');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    background-color: var(--text-color);
+}
+.sidebar-username-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+    margin: 0;
+    padding-top: 5px;
+    color: var(--text-color);
 }
 .sidebar-sign-in{
     text-decoration: none;
