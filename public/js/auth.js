@@ -1,3 +1,4 @@
+import { apiFetch } from '/js/index.js'
 // public/js/auth.js
 
 const form = document.getElementById('loginForm');
@@ -42,13 +43,6 @@ form.addEventListener('submit', async (e) => {
     showError('Проблема з мережею. Спробуйте пізніше');
   }
 });
-
-function getCookie(name) {
-const match = document.cookie.match(
-new RegExp('(?:^|; )' + name.replace(/[.$?*|{}()[\]\\/+^]/g, '\\$&') + '=([^;]*)')
-);
-return match ? decodeURIComponent(match[1]) : null;
-}
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

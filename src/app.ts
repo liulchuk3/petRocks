@@ -6,6 +6,7 @@ import Backend from "i18next-fs-backend";
 import * as i18nextMiddleware from 'i18next-http-middleware';
 import pagesRoutes from "./routes/pages.routes.js";
 import authRoutes from './routes/auth.routes.js';
+import apiRoutes from './routes/api.routes.js';
 import { syncLangWithUrl } from "./middleware/lang-sync.middleware.js";
 
 const app = express();
@@ -61,5 +62,7 @@ app.get("/", (req, res) => {
 app.use("/:lng", pagesRoutes);
 
 app.use('/auth', authRoutes);
+
+app.use('/api', apiRoutes);
 
 export default app;

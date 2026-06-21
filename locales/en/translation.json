@@ -30,9 +30,23 @@
     "profile": {
         "hello": "Hello",
         "hello-v2": "Welcome to your profile!",
+        "userId": "User ID",
         "email": "Email",
         "username": "Username",
-        "no-username-link": "Set Username"
+        "no-username-link": "Set Username",
+        "tab-info": "Profile",
+        "tab-cart": "Cart",
+        "tab-items": "My Items",
+        "tab-likes": "Likes",
+        "cart-empty": "Your cart is empty",
+        "likes-empty": "No liked items yet",
+        "items-empty": "You have no listed items",
+        "loading": "Loading...",
+        "total": "Total",
+        "quantity": "Qty",
+        "remove": "Remove",
+        "in-stock": "In stock",
+        "price": "Price"
     },
     "authorization": {
         "sign-in-heading": "Sign In",

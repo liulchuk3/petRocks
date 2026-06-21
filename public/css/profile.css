@@ -1,19 +1,269 @@
+/* ── PROFILE CONTAINER ──────────────────────────────────────────────── */
 .profile-container {
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px 40px 10px;
 }
-.profile-h{
-    margin: 0 auto;
+.profile-h {
+    margin: 0 0 20px 0;
     font-size: 24px;
     font-weight: bold;
+    text-align: center;
 }
-.profile-info{
-    margin-top: 20px;
-    padding-left: 10px;
+
+/* ── TABS ────────────────────────────────────────────────────────────── */
+.profile-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-.profile-picture{
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
+:root.dark .profile-tabs {
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+.profile-tab {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: 8px 16px;
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.1s, border-color 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    -webkit-tap-highlight-color: transparent;
+}
+.profile-tab:hover {
+    color: var(--text-color-hover);
+}
+.profile-tab.active {
+    border-bottom-color: var(--button-bg-color);
+    color: var(--button-bg-color);
+}
+.tab-badge {
+    background-color: var(--button-bg-color);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 11px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.tab-badge.visible {
+    display: inline-flex;
+}
+
+/* ── PANELS ──────────────────────────────────────────────────────────── */
+.profile-panel {
+    display: none;
+}
+.profile-panel.active {
+    display: block;
+}
+
+/* ── PROFILE INFO ────────────────────────────────────────────────────── */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 4px;
+}
+.profile-picture {
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
+    object-fit: cover;
     background-color: #ccc;
+    flex-shrink: 0;
+}
+.profile-details p {
+    margin: 4px 0;
+    font-size: 16px;
+}
+
+/* ── PANEL STATES ────────────────────────────────────────────────────── */
+.panel-loading,
+.panel-empty {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 16px;
+    padding: 20px 0;
+}
+
+/* ── ITEM CARDS GRID ──────────────────────────────────────────────────── */
+.profile-panel-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+}
+
+/* ── CART CARD ───────────────────────────────────────────────────────── */
+.cart-card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.cart-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.cart-card-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+    color: var(--text-color);
+}
+.cart-card-price {
+    font-size: 14px;
+    color: var(--button-bg-color);
+    margin: 0;
+    font-weight: 700;
+}
+.cart-card-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.cart-qty-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--button-border-color);
+    background: none;
+    color: var(--text-color);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+.cart-qty-btn:hover {
+    background-color: var(--button-bg-color);
+    color: #fff;
+}
+.cart-qty-value {
+    font-size: 15px;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+}
+.cart-remove-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    transition: opacity 0.15s;
+}
+.cart-remove-btn:hover { opacity: 0.7; }
+
+/* ── CART TOTAL ──────────────────────────────────────────────────────── */
+.cart-total {
+    margin-top: 16px;
+    font-size: 18px;
+    color: var(--text-color);
+    padding-left: 4px;
+}
+
+/* ── LIKE CARD ───────────────────────────────────────────────────────── */
+.like-card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.like-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.like-card-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+    color: var(--text-color);
+}
+.like-card-price {
+    font-size: 14px;
+    color: var(--button-bg-color);
+    margin: 0;
+    font-weight: 700;
+}
+.unlike-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    transition: opacity 0.15s;
+}
+.unlike-btn:hover { opacity: 0.7; }
+
+/* ── OWN ITEM CARD ───────────────────────────────────────────────────── */
+.own-item-card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.own-item-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.own-item-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+    color: var(--text-color);
+}
+.own-item-price {
+    font-size: 14px;
+    color: var(--button-bg-color);
+    margin: 0;
+    font-weight: 700;
+}
+.own-item-stock {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin: 0;
+}
+.own-item-inactive {
+    font-size: 11px;
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+@media (min-width: 1200px) {
+    .profile-container {
+        width: 1200px;
+        margin: 0 auto;
+    }
 }

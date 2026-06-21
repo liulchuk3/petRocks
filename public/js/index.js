@@ -1,4 +1,7 @@
-async function apiFetch(url, options = {}) {
+// public/js/index.js
+
+// Global function to handle API requests with automatic token refresh
+export async function apiFetch(url, options = {}) {
   const config = {
     ...options,
     credentials: 'include',
@@ -28,10 +31,18 @@ async function apiFetch(url, options = {}) {
   return res;
 }
 
-// Logout button handler
-const logoutBtn = document.getElementById('logout-btn');
+// Global function to get a cookie value by name
+export function getCookie(name) {
+const match = document.cookie.match(
+new RegExp('(?:^|; )' + name.replace(/[.$?*|{}()[\]\\/+^]/g, '\\$&') + '=([^;]*)')
+);
+return match ? decodeURIComponent(match[1]) : null;
+}
 
-logoutBtn.addEventListener('click', async () => {
+
+
+// Logout button handler
+document.getElementById('logout-btn').addEventListener('click', async () => {
   try {
     const res = await apiFetch('/auth/logout', { method: 'POST' });
     const data = await res.json();
