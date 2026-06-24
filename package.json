@@ -19,6 +19,7 @@
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
     "@types/node": "^25.9.3",
     "@types/pg": "^8.20.0",
     "browser-sync": "^3.0.4",
@@ -42,7 +43,9 @@
     "i18next-fs-backend": "^2.6.6",
     "i18next-http-middleware": "^3.9.7",
     "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
     "pg": "^8.21.0",
+    "sharp": "^0.35.2",
     "zod": "^4.4.3"
   }
 }

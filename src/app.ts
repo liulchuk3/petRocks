@@ -8,6 +8,7 @@ import pagesRoutes from "./routes/pages.routes.js";
 import authRoutes from './routes/auth.routes.js';
 import apiRoutes from './routes/api.routes.js';
 import { syncLangWithUrl } from "./middleware/lang-sync.middleware.js";
+import { Request, Response, NextFunction } from 'express';
 
 const app = express();
 
@@ -64,5 +65,17 @@ app.use("/:lng", pagesRoutes);
 app.use('/auth', authRoutes);
 
 app.use('/api', apiRoutes);
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    console.log('File too large (max 5MB)');
+    return res.status(400).json({ error: 'File too large (max 5MB)' });
+  }
+  if (err.message === 'Only JPEG, PNG, WebP allowed') {
+    console.log('Only JPEG, PNG, WebP allowed');
+    return res.status(400).json({ error: 'Only JPEG, PNG, WebP allowed' });
+  }
+  next(err);
+});
 
 export default app;

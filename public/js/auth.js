@@ -1,4 +1,5 @@
 import { apiFetch } from '/js/index.js'
+import { getCookie } from '/js/index.js'
 // public/js/auth.js
 
 const form = document.getElementById('loginForm');

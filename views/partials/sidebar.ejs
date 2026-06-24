@@ -26,7 +26,10 @@
         <a href="/<%= currentLng %>/contact" class="sidebar-link"><%= t('global.navigation.contact') %></a>
     </nav>
 
-    <button id="logout-btn"><%= t('global.logout') %></button>
+    <% if (userData) { %>
+    <button id="logout-btn" class="logout-btn"><%= t('global.logout') %></button>
+    <% } %>
+
 </aside>
 
 <div id="overlay" class="overlay"></div>

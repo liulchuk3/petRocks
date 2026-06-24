@@ -17,7 +17,6 @@ model Items {
   sku           String     @unique
   slug          String     @unique
   name          String
-  shortDesc     String
   description   String
 
   price         Decimal    @db.Decimal(10, 2)
@@ -26,7 +25,7 @@ model Items {
   ownerId       String
   owner         User       @relation(fields: [ownerId], references: [id])
 
-  stock         Int        @default(0)
+  stock         Int        @default(1) //This is the number of items available in stock
   isActive      Boolean    @default(true)
   imageUrl      String
 

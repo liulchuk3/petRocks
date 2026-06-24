@@ -4,7 +4,36 @@ import {
   getCart, addToCart, updateCartQuantity, removeFromCart,
   getLikes, toggleLike,
   getOwnItems,
+  getAllItemsForHomePageService,
+  createAdminItemService,
 } from '../services/items.service.js';
+import { prisma } from '../lib/prisma.js';
+import { compressAndSave } from '../utils/upload.js';
+
+// ALL ITEMS FOR THE HOME PAGE (hits || new)
+export const getAllItemsForHomePageController = async () => {
+  const itemsController = await getAllItemsForHomePageService();
+  return itemsController;
+}
+
+
+
+
+
+// ── ADMIN: CREATE ITEM ───────────────────────────────────────────────────────
+export const createAdminItemController = async (req: AuthRequest, res: Response) => {
+  const { name, description, price } = req.body;
+  const imageFile = req.file;
+  const ownerId = req.userId!; // Ensure ownerId is set to the authenticated user's ID
+
+  if (!name || !description || !price || !imageFile) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+  const response = await createAdminItemService({ name, description, price, ownerId }, imageFile);
+  res.json(response);
+}
+
+
 
 // ── CART ──────────────────────────────────────────────────────────────────────
 
@@ -54,7 +83,6 @@ export const toggleLikeHandler = async (req: AuthRequest, res: Response) => {
 };
 
 // ── OWN ITEMS ─────────────────────────────────────────────────────────────────
-
 export const getOwnItemsHandler = async (req: AuthRequest, res: Response) => {
   const items = await getOwnItems(req.userId!);
   res.json(items);

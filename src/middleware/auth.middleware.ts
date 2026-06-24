@@ -70,7 +70,7 @@ export const optionalAuth = async (req: AuthRequest, res: Response, next: NextFu
 export const requireAuth = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const userId = extractUserId(req); // спочатку пробуємо accessToken
 
-  if (userId) {
+  if (userId) { // якщо accessToken валідний, дістаємо userId і пропускаємо запит
     req.userId = userId;
     return next(); // accessToken валідний — все добре
   }
@@ -101,4 +101,19 @@ export const requireAuth = async (req: AuthRequest, res: Response, next: NextFun
   } catch {
     return res.status(401).json({ error: 'Unauthorized' }); // refreshToken невалідний
   }
+};
+
+// Додатковий middleware для адмінських роутів
+export const requireAdmin = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  // requireAdmin завжди йде після requireAuth, тому userId вже є
+  const user = await prisma.user.findUnique({
+    where: { id: req.userId! },
+    select: { role: true }, // беремо тільки role, не весь об'єкт
+  });
+
+  if (!user || user.role !== 'ADMIN') {
+    return res.status(403).render('errorPages/403'); // 403, а не 401!
+  }
+
+  next();
 };

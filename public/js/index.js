@@ -42,7 +42,9 @@ return match ? decodeURIComponent(match[1]) : null;
 
 
 // Logout button handler
-document.getElementById('logout-btn').addEventListener('click', async () => {
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
   try {
     const res = await apiFetch('/auth/logout', { method: 'POST' });
     const data = await res.json();
@@ -53,7 +55,8 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
   } catch (error) {
     console.error('Logout failed:', error);
   }
-});
+    });
+}
 
 document.getElementById('header-sidebar-open-btn').addEventListener('click', () => {
     document.querySelector('.sidebar').classList.add('open-sidebar');

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+
+        <h1 class="admin-h"><%= t("admin.heading") %></h1>
+
+        <div class="admin-buttons">
+            <button id="addItemButton" class="admin-button-active"><%= t("admin.add-item") %></button>
+            <button id="allItemsButton"><%= t("admin.view-items") %></button>
+            <button id="allOrdersButton"><%= t("admin.view-orders") %></button>
+            <button id="dashboardStatisticsButton"><%= t("admin.view-dashboard") %></button>
+        </div>
+
+        <div class="admin-addItem-container container-active" id="admin-addItem-container">
+            <form id="addItemForm" enctype="multipart/form-data">
+                <div class="form-field">
+                    <label for="name"><%= t("admin.field-name") %></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-field">
+                    <label for="description"><%= t("admin.field-description") %></label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="price"><%= t("admin.field-price") %></label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="image"><%= t("admin.field-image") %></label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <p id="formError" class="form-error" style="display: none;"> <%= t("admin.item-added-error") %></p>
+                <p id="formSuccess" class="form-success" style="display: none;"><%= t("admin.item-added-success") %></p>
+                <button type="submit"><%= t("admin.submit") %></button>
+            </form>
+        </div>
+
+        <div class="admin-allItems-container" id="admin-allItems-container">
+
+        </div>
+
+        <div class="admin-allOrders-container" id="admin-allOrders-container">
+        </div>
+
+        <div class="admin-dashboardStatistics-container" id="admin-dashboardStatistics-container">
+        </div>
+
+        <!-- <div id="admin-i18n" hidden
+            data-addSuccess = "<%= t("admin.item-added-success") %>"
+            data-addError = "<%= t("admin.item-added-error") %>"
+        ></div> -->
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+<script src="/js/admin.js" type="module"></script>
+</body>
+</html>

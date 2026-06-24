@@ -60,5 +60,20 @@
         "already-have-account": "Already have an account?",
         "sign-up-link": "Sign Up",
         "sign-in-link": "Sign In"
+    },
+    "admin": {
+        "heading": "Admin Panel",
+        "add-item": "Add",
+        "view-items": "Items",
+        "view-orders": "Orders",
+        "view-dashboard": "Dashboard",
+        "field-name": "Name",
+        "field-description": "Description",
+        "field-price": "Price",
+        "field-image": "Image",
+        "submit": "Add Item",
+        "item-added-success": "Item added successfully!",
+        "item-added-error": "Error adding item. Only JPEG, PNG, WebP allowed."
     }
+
 }

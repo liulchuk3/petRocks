@@ -8,6 +8,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    <%- include('../partials/cart') %>
     <%- include('../partials/sidebar') %>
 
     <main>
@@ -21,13 +22,13 @@
             <button class="scroll-btn scroll-btn-top-left" aria-label="Scroll left">&#8249;</button>
 
             <div class="rocks-container top-rocks-container">
-                <% items.forEach(item => { %>
+                <% items.hitItems.forEach(item => { %>
                     <div class="rock-card">
-                        <a href="/product/<%= item.id %>" class="rock-card-image-link">
+                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
                             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                         </a>
                         <h2>
-                            <a href="/product/<%= item.id %>" class="rock-card-title-link"><%= item.name %></a>
+                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
                         </h2>
                         <p class="price">$<%= item.price %></p>
                         <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
@@ -47,13 +48,13 @@
             <button class="scroll-btn scroll-btn-bottom-left" aria-label="Scroll left">&#8249;</button>
 
             <div class="rocks-container bottom-rocks-container">
-                <% items.forEach(item => { %>
+                <% items.newItems.forEach(item => { %>
                     <div class="rock-card">
-                        <a href="/product/<%= item.id %>" class="rock-card-image-link">
+                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
                             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                         </a>
                         <h2>
-                            <a href="/product/<%= item.id %>" class="rock-card-title-link"><%= item.name %></a>
+                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
                         </h2>
                         <p class="price">$<%= item.price %></p>
                         <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>

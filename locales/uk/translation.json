@@ -61,5 +61,19 @@
         "already-have-account": "Вже є обліковий запис?",
         "sign-up-link": "Зареєструватися",
         "sign-in-link": "Увійти"
+    },
+    "admin": {
+        "heading": "Панель адміністратора",
+        "add-item": "Додати",
+        "view-items": "Товари",
+        "view-orders": "Замовлення",
+        "view-dashboard": "Панель",
+        "field-name": "Назва",
+        "field-description": "Опис",
+        "field-price": "Ціна",
+        "field-image": "Зображення",
+        "submit": "Додати товар",
+        "item-added-success": "Товар успішно додано!",
+        "item-added-error": "Помилка при додаванні товару. Дозволені лише JPEG, PNG, WebP."
     }
 }

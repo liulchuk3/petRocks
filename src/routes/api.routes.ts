@@ -3,7 +3,10 @@ import { requireAuth } from '../middleware/auth.middleware.js';
 import { getCartHandler, addToCartHandler, updateCartHandler, removeFromCartHandler,
          getLikesHandler, toggleLikeHandler,
          getOwnItemsHandler,
+         createAdminItemController,
 } from '../controllers/items.controllers.js';
+import { requireAdmin } from '../middleware/auth.middleware.js';
+import { upload } from '../utils/upload.js'; // Import the upload middleware for handling file uploads
 
 const router = Router();
 
@@ -19,5 +22,10 @@ router.post('/profile/likes/:itemId', requireAuth, toggleLikeHandler);
 
 // Own items
 router.get('/profile/items', requireAuth, getOwnItemsHandler);
+
+
+// Admin routes
+router.post('/items', requireAuth, requireAdmin, upload.single('image'), createAdminItemController); // Create a new item (Admin only)
+
 
 export default router;
