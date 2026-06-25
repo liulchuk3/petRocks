@@ -102,11 +102,36 @@ export async function getCartCount(userId: string) {
 
 // Get all items for the home page (active items only)
 export const getAllItemsForHomePageService = async () => {
-  const hitItemsService = await prisma.items.findMany({
-    where: { isActive: true },
-    take: 10,
-    select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true, owner: { select: { role: true } } },
-  });
+
+  // 1. Отримуємо 10 випадкових ID активних товарів
+const randomIdsResult = await prisma.$queryRaw<{ id: number }[]>`
+  SELECT id FROM "Items" WHERE "isActive" = true ORDER BY RANDOM() LIMIT 10
+`;
+
+const randomIds = randomIdsResult.map(item => item.id);
+
+// 2. Завантажуємо повні дані для цих ID (БД поверне їх у своєму порядку, наприклад 1, 5, 12...)
+const items = await prisma.items.findMany({
+  where: { id: { in: randomIds } },
+  select: { 
+    id: true, 
+    name: true, 
+    price: true, 
+    discountPrice: true, 
+    imageUrl: true, 
+    slug: true, 
+    owner: { select: { role: true } } //
+  },
+});
+
+// 3. ПЕРЕТАСОВУЄМО отриманий масив у JS (Швидкий спосіб)
+const hitItemsService = items.sort(() => Math.random() - 0.5);
+
+  // const hitItemsService = await prisma.items.findMany({
+  //   where: { isActive: true },
+  //   take: 10,
+  //   select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true, owner: { select: { role: true } } },
+  // });
 
   const newItemsService = await prisma.items.findMany({
   where: { isActive: true },

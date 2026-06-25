@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/catalog.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/cart') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+
+        <div class="rocks-container top-rocks-container">
+                <% items.hitItems.forEach(item => { %>
+                    <div class="rock-card">
+                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                        </a>
+                        <h2>
+                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
+                        </h2>
+                        <p class="price">$<%= item.price %></p>
+                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
+                    </div>
+                <% }) %>
+            </div>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+<script src="/js/catalog.js" type="module"></script>
+</body>
+</html>

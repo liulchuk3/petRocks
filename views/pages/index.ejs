@@ -15,7 +15,7 @@
         <h1><%= t('index.h1-part-one') %> <br> <span><%= t('index.h1-part-two') %></span></h1>
         <p class="home-p-description1"><%= t('index.p-description') %></p>
 
-        <a href="#catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
+        <a href="/<%= currentLng %>/catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
 
         <a href="" class="collection-a"><h2 class="collection-h"><%= t('index.our-hits-heading') %></h2></a>
         <div class="rocks-wrapper">
@@ -50,6 +50,7 @@
             <div class="rocks-container bottom-rocks-container">
                 <% items.newItems.forEach(item => { %>
                     <div class="rock-card">
+                        <div class="user-div"></div>
                         <a href="/product/<%= item.slug %>" class="rock-card-image-link">
                             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                         </a>
@@ -65,7 +66,7 @@
             <button class="scroll-btn scroll-btn-bottom-right" aria-label="Scroll right">&#8250;</button>
         </div>
 
-        <a href="#catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
+        <a href="/<%= currentLng %>/catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
 
         <hr>
 

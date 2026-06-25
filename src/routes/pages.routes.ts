@@ -21,6 +21,18 @@ const router = Router();
     });
     });
 
+    router.get("/catalog", optionalAuth, async (req: AuthRequest, res) => {
+        const itemsData = await getAllItemsForHomePageController(); // Уявна функція, яка дістає всі товари з бази даних
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
+        res.render("pages/catalog", {
+            currentLng: req.language,
+            userData: userData ?? null, // дані користувача або null, якщо гість
+            userCartCount, // кількість товарів у кошику користувача
+            items: itemsData, // масив товарів з бази даних
+        });
+    });
+
     router.get("/profile", requireAuth, async (req: AuthRequest, res) => {
         const userData = await getFullUserData(req.userId!);
         res.render("pages/profile", {

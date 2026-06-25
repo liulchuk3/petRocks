@@ -65,13 +65,22 @@ document.getElementById('addItemForm').addEventListener('submit', async (e) => {
   });
 
   const data = await res.json();
+  if (data.success) {
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('formFileTypeError').style.display = 'none';
+    document.getElementById('formFileSizeError').style.display = 'none';
+    document.getElementById('addItemForm').reset(); // очищаємо форму після успішного додавання
+  }
   if (data.error === 'File too large (max 5MB)') {
-    document.getElementById('formError').style.display = 'block';
     document.getElementById('formSuccess').style.display = 'none';
+    document.getElementById('formFileTypeError').style.display = 'none';
+    document.getElementById('formFileSizeError').style.display = 'block';
+    
   }
   if (data.error === 'Only JPEG, PNG, WebP allowed') {
-    document.getElementById('formError').style.display = 'block';
     document.getElementById('formSuccess').style.display = 'none';
+    document.getElementById('formFileTypeError').style.display = 'block';
+    document.getElementById('formFileSizeError').style.display = 'none';
   }
 });
 

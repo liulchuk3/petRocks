@@ -179,7 +179,8 @@ main h1 span{
 }
 .rock-card img {
     width: 100%;
-    height: auto;
+    max-height: 160px;
+    object-fit: cover;
     border-radius: 10px;
 }
 .rock-card a {

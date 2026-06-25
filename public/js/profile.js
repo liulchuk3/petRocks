@@ -1,5 +1,4 @@
 // public/js/profile.js
-
 import { apiFetch } from '/js/index.js'
 import { getCookie } from '/js/index.js'
 
@@ -57,7 +56,6 @@ import { getCookie } from '/js/index.js'
       // Lazy load data on first open
       if (tab.dataset.tab === 'cart'  && state.cart  === null) loadCart();
       if (tab.dataset.tab === 'likes' && state.likes === null) loadLikes();
-      if (tab.dataset.tab === 'items' && state.items === null) loadItems();
     });
   });
 
@@ -188,39 +186,5 @@ import { getCookie } from '/js/index.js'
       state.likes = state.likes.filter(l => l.itemId !== itemId);
       renderLikes();
     } catch { /* silent */ }
-  }
-
-  // ── OWN ITEMS ──────────────────────────────────────────────────────────
-  async function loadItems() {
-    const el = document.getElementById('items-content');
-    el.innerHTML = `<p class="panel-loading">${i18n.loading}</p>`;
-    try {
-      state.items = await apiFetch('/api/profile/items');
-      renderItems();
-    } catch {
-      el.innerHTML = `<p class="panel-loading">Error loading items</p>`;
-    }
-  }
-
-  function renderItems() {
-    const el = document.getElementById('items-content');
-
-    if (!state.items.length) {
-      el.innerHTML = `<p class="panel-empty">${i18n.itemsEmpty}</p>`;
-      setBadge('items-badge', 0);
-      return;
-    }
-
-    setBadge('items-badge', state.items.length);
-
-    el.innerHTML = state.items.map(item => `
-      <div class="own-item-card">
-        <img src="${item.imageUrl}" alt="${item.name}">
-        <p class="own-item-name">${item.name}</p>
-        <p class="own-item-price">${fmt(item.price)}</p>
-        <p class="own-item-stock">${i18n.inStock}: ${item.stock}</p>
-        ${!item.isActive ? `<span class="own-item-inactive">Inactive</span>` : ''}
-      </div>
-    `).join('');
   }
 })();

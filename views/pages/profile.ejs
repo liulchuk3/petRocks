@@ -25,7 +25,6 @@
                 <button class="profile-tab active" data-tab="info"><%= t("profile.tab-info") %></button>
                 <button class="profile-tab" data-tab="cart"><%= t("profile.tab-cart") %> <span class="tab-badge" id="cart-badge"></span></button>
                 <button class="profile-tab" data-tab="likes"><%= t("profile.tab-likes") %> <span class="tab-badge" id="likes-badge"></span></button>
-                <button class="profile-tab" data-tab="items"><%= t("profile.tab-items") %> <span class="tab-badge" id="items-badge"></span></button>
             </div>
 
             <%# ── Панель: Профіль ────────────────────────────────── %>
@@ -61,13 +60,6 @@
             <%# ── Панель: Уподобання ─────────────────────────────── %>
             <div class="profile-panel" id="panel-likes">
                 <div class="profile-panel-inner" id="likes-content">
-                    <p class="panel-loading"><%= t("profile.loading") %></p>
-                </div>
-            </div>
-
-            <%# ── Панель: Мої товари ─────────────────────────────── %>
-            <div class="profile-panel" id="panel-items">
-                <div class="profile-panel-inner" id="items-content">
                     <p class="panel-loading"><%= t("profile.loading") %></p>
                 </div>
             </div>

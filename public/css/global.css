@@ -19,6 +19,8 @@
     --catalog-bg-color: rgb(255, 255, 255);
     --sing-in-link-bg-color: rgba(0, 0, 0, 0.1);
     --sing-in-link-bg-color-hover: rgba(0, 0, 0, 0.2);
+    --success-color: rgb(0, 128, 0);
+    --error-color: rgb(255, 0, 0);
 }
 :root .site-logo {
   content: url("/images/petRocksLogoLight.png");
@@ -42,6 +44,8 @@
     --catalog-bg-color: rgb(39, 49, 66);
     --sing-in-link-bg-color: rgba(255, 255, 255, 0.1);
     --sing-in-link-bg-color-hover: rgba(255, 255, 255, 0.2);
+    --success-color: rgb(0, 255, 0);
+    --error-color: rgb(255, 0, 0);
 }
 :root.dark .site-logo {
   content: url("/images/petRocksLogoDarkV2.png");
