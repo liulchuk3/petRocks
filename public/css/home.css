@@ -68,6 +68,19 @@ main h1 span{
 .catalog-heading:hover::before {
     background-color: var(--text-color-hover);
 }
+.catalog-heading-animation{
+    animation: border-color-change 1s;
+}
+@keyframes border-color-change {
+    0% { border-color: var(--text-color-gradient-1);
+     }
+    50% { border-color: var(--text-color-gradient-2); 
+    
+     }
+    100% { border-color: var(--text-color-gradient-1); 
+
+     }
+}
 .collection-a{
     width: 90%;
     text-decoration: none;
@@ -193,13 +206,6 @@ main h1 span{
     font-size: 22px;
     margin: 5px 0 0px 0px;
 }
-.rock-card p:not(:last-child) {
-    text-align: center;
-}
-.rock-card p {
-    margin: 5px 0;
-    color: var(--text-color);
-}
 .rock-card .price {
     font-size: 18px;
     font-weight: bold;
@@ -290,11 +296,85 @@ hr{
     display: none;
 }
 
-
-
-
-
 @media (min-width: 1200px) {
+    main{
+        width: 1200px;
+        margin: 0px auto;
+        padding-top: 80px;
+        min-height: 100vh;
+    }
+    main h1{
+        font-size: 48px;
+    }
+    .h1-span-animation {
+    /* 1. Створюємо градієнт із твоїх змінних (можна додати третій колір для кращого ефекту) */
+    background: linear-gradient(
+        45deg, 
+        var(--h1-span-color-animation) 0%, 
+        var(--h1-span-color) 50%, 
+        var(--h1-span-color-animation) 100%
+    );
+    
+    /* 2. Розтягуємо фон, щоб було куди рухатися */
+    background-size: 200% auto;
+    
+    /* 3. Магія: вирізаємо фон по контуру тексту, а сам текст робимо прозорим */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* 4. Запускаємо анімацію (збільшив час до 3s, щоб переливання було плавним, а не швидким блиманням) */
+    animation: h1-span-color-change 3s linear infinite;
+}
+
+@keyframes h1-span-color-change {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center; /* Зсуваємо фон, створюючи ефект переливання */
+    }
+}
+    .collection-a{
+    width: 90%;
+    text-decoration: none;
+    }
+    .collection-h{
+        font-size: 36px;
+        color: var(--text-color);
+        margin: 0px 0 0px 0;
+        display: contents;
+        text-align: left;
+        padding: 0px;
+        transition: all 0.1s ease;
+    }
+    .catalog-heading{
+    text-decoration: none;
+    font-size: 38px;
+    color: var(--text-color);
+    margin: 10px 0 20px 0;
+    padding: 5px 15px;
+    border: 3px solid var(--text-color);
+    border-radius: 10px;
+    transition: all 0.1s ease;
+    }
+    .catalog-heading::before {
+    padding-right: 10px;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+}
+    .catalog-heading:last-of-type {
+        margin-top: 60px;
+        margin-bottom: 100px;
+    }
+    .catalog-heading:hover {
+        cursor: pointer;
+        color: var(--text-color-hover);
+        border-color: var(--text-color-hover);
+        transform: scale(1.02);
+        transition: all 0.1s ease;
+    }
     hr{
     color: var(--text-color);
     display: block;
@@ -313,11 +393,36 @@ hr{
     background-color: var(--card-bg-color);
     border-radius: 10px;
     padding: 10px;
-    min-width: 240px;
+    min-width: 210px;
+    max-width: 210px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: rock-card-fade-in 1s fade-in;
+    }
+    /* Sequential animation delays for cards */
+    .rock-card-animation:nth-child(1) { animation-delay: 0.05s; }
+    .rock-card-animation:nth-child(2) { animation-delay: 0.1s; }
+    .rock-card-animation:nth-child(3) { animation-delay: 0.15s; }
+    .rock-card-animation:nth-child(4) { animation-delay: 0.2s; }
+    .rock-card-animation:nth-child(5) { animation-delay: 0.25s; }
+    .rock-card-animation:nth-child(6) { animation-delay: 0.3s; }
+
+    .rock-card-animation {
+    animation-name: rock-card-fade-in;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    }   
+
+    @keyframes rock-card-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
     .home-p-description1{
     line-height: 1.1;
@@ -327,6 +432,11 @@ hr{
     color: var(--text-color);
     padding: 0 10px;
     margin-top: 10px;
+    transition: all 0.2s ease;
+    }
+    .rock-card:hover{
+    transition: all 0.2s ease;
+    transform: scale(1.05);
     }
     .home-p-description2{
     width: 70%;

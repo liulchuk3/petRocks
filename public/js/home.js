@@ -7,10 +7,11 @@ const btnBottomLeft   = document.querySelector('.scroll-btn-bottom-left');
 const btnBottomRight  = document.querySelector('.scroll-btn-bottom-right');
 
 const STEP = 300; // пікселів за один клік
+const catalogHeading = document.querySelector('.catalog-heading');
 
 function updateTopButtons() {
     btnTopLeft.classList.toggle('hidden', containerTop.scrollLeft <= 0);
-    btnTopRight.classList.toggle('hidden',
+    btnTopRight.classList.toggle('hidden', 
         containerTop.scrollLeft >= containerTop.scrollWidth - containerTop.clientWidth - 1
     );
 }

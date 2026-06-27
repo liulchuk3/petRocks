@@ -3,7 +3,103 @@ import { compressAndSave } from '../utils/upload.js';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 import { Response } from 'express';
 
-// ── CART ──────────────────────────────────────────────────────────────────────
+// Get all items for the home page (active items only)
+export const getAllItemsForHomePageService = async () => {
+
+const randomIdsResult = await prisma.$queryRaw<{ id: number }[]>`
+  SELECT id FROM "Items" WHERE "isActive" = true ORDER BY RANDOM() LIMIT 12
+`;
+
+const randomIds = randomIdsResult.map(item => item.id);
+
+const items = await prisma.items.findMany({
+  where: { id: { in: randomIds } },
+  select: { 
+    id: true, 
+    name: true, 
+    price: true, 
+    discountPrice: true, 
+    imageUrl: true, 
+    slug: true, 
+    owner: { select: { role: true } } //
+  },
+});
+
+const hitItemsService = items.sort(() => Math.random() - 0.5);
+
+  const newItemsService = await prisma.items.findMany({
+  where: { isActive: true },
+  orderBy: {
+    createdAt: 'desc',
+  },
+  take: 12,
+  select: { 
+    id: true, 
+    name: true, 
+    price: true, 
+    discountPrice: true, 
+    imageUrl: true, 
+    slug: true, 
+    owner: { select: { role: true } } 
+  },
+});
+  return { hitItems: hitItemsService, newItems: newItemsService };
+}
+
+// Get all items for the catalog page (active items only)
+export const getAllItemsForCatalogService = async () => {
+  const fullItemsData = await prisma.items.findMany({
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      discountPrice: true,
+      isActive: true,
+      imageUrl: true,
+      slug: true,
+      owner: { select: { role: true } }
+    }
+  });
+  
+  const items = fullItemsData.sort(() => Math.random() - 0.5).sort((a, b) => Number(b.isActive) - Number(a.isActive)); // Сортуємо за isActive, де true (1) буде перед false (0)
+
+  return items;
+}
+
+// Create a new item (Admin only has access to this)
+export const createAdminItemService = async (data: { name: string; description: string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
+  try {
+    const imageUrl = await compressAndSave(imageFile);
+
+    const slug = data.name // Генерація slug з назви товару
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      + '-' + Date.now();
+
+    const sku = `SKU-${Date.now()}-${Math.random().toString(36).slice(2).toUpperCase()}`; // Генерація SKU
+
+    const item = await prisma.items.create({
+      data: { name: data.name,
+        description: data.description,
+        price: data.price,
+        sku,
+        slug,
+        imageUrl,
+        ownerId: data.ownerId,
+      },
+    });
+
+    return { success: true, item };
+  } catch (error) {
+    throw new Error('Failed to create item');
+  }
+};
+
+
+
+
 
 export async function getCart(userId: string) {
   return prisma.cartItem.findMany({
@@ -80,17 +176,6 @@ export async function toggleLike(userId: string, itemId: number) {
 
 // ── OWN ITEMS ─────────────────────────────────────────────────────────────────
 
-export async function getOwnItems(userId: string) {
-  return prisma.items.findMany({
-    where: { ownerId: userId },
-    select: {
-      id: true, name: true, price: true, discountPrice: true,
-      imageUrl: true, slug: true, stock: true, isActive: true, createdAt: true,
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-}
-
 export async function getCartCount(userId: string) {
   const count = await prisma.cartItem.aggregate({
     where: { userId },
@@ -100,85 +185,3 @@ export async function getCartCount(userId: string) {
 }
 
 
-// Get all items for the home page (active items only)
-export const getAllItemsForHomePageService = async () => {
-
-  // 1. Отримуємо 10 випадкових ID активних товарів
-const randomIdsResult = await prisma.$queryRaw<{ id: number }[]>`
-  SELECT id FROM "Items" WHERE "isActive" = true ORDER BY RANDOM() LIMIT 10
-`;
-
-const randomIds = randomIdsResult.map(item => item.id);
-
-// 2. Завантажуємо повні дані для цих ID (БД поверне їх у своєму порядку, наприклад 1, 5, 12...)
-const items = await prisma.items.findMany({
-  where: { id: { in: randomIds } },
-  select: { 
-    id: true, 
-    name: true, 
-    price: true, 
-    discountPrice: true, 
-    imageUrl: true, 
-    slug: true, 
-    owner: { select: { role: true } } //
-  },
-});
-
-// 3. ПЕРЕТАСОВУЄМО отриманий масив у JS (Швидкий спосіб)
-const hitItemsService = items.sort(() => Math.random() - 0.5);
-
-  // const hitItemsService = await prisma.items.findMany({
-  //   where: { isActive: true },
-  //   take: 10,
-  //   select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true, owner: { select: { role: true } } },
-  // });
-
-  const newItemsService = await prisma.items.findMany({
-  where: { isActive: true },
-  orderBy: {
-    createdAt: 'desc',
-  },
-  take: 10,
-  select: { 
-    id: true, 
-    name: true, 
-    price: true, 
-    discountPrice: true, 
-    imageUrl: true, 
-    slug: true, 
-    owner: { select: { role: true } } 
-  },
-});
-  return { hitItems: hitItemsService, newItems: newItemsService };
-}
-
-// Create a new item (Admin only has access to this)
-export const createAdminItemService = async (data: { name: string; description: string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
-  try {
-    const imageUrl = await compressAndSave(imageFile);
-
-    const slug = data.name // Генерація slug з назви товару
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      + '-' + Date.now();
-
-    const sku = `SKU-${Date.now()}-${Math.random().toString(36).slice(2).toUpperCase()}`; // Генерація SKU
-
-    const item = await prisma.items.create({
-      data: { name: data.name,
-        description: data.description,
-        price: data.price,
-        sku,
-        slug,
-        imageUrl,
-        ownerId: data.ownerId,
-      },
-    });
-
-    return { success: true, item };
-  } catch (error) {
-    throw new Error('Failed to create item');
-  }
-};

@@ -3,12 +3,14 @@ import { AuthRequest } from '../middleware/auth.middleware.js';
 import {
   getCart, addToCart, updateCartQuantity, removeFromCart,
   getLikes, toggleLike,
-  getOwnItems,
   getAllItemsForHomePageService,
+  getAllItemsForCatalogService,
   createAdminItemService,
 } from '../services/items.service.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
+
+
 
 // ALL ITEMS FOR THE HOME PAGE (hits || new)
 export const getAllItemsForHomePageController = async () => {
@@ -16,11 +18,15 @@ export const getAllItemsForHomePageController = async () => {
   return itemsController;
 }
 
+// ALL ITEMS FOR CATALOG PAGE
+export const getAllItemsForCatalogController = async () => {
+  const itemsController = await getAllItemsForCatalogService();
+  return itemsController;
+}
 
 
 
-
-// ── ADMIN: CREATE ITEM ───────────────────────────────────────────────────────
+// ── ADMIN: CREATE ITEM
 export const createAdminItemController = async (req: AuthRequest, res: Response) => {
   const { name, description, price } = req.body;
   const imageFile = req.file;
@@ -83,7 +89,3 @@ export const toggleLikeHandler = async (req: AuthRequest, res: Response) => {
 };
 
 // ── OWN ITEMS ─────────────────────────────────────────────────────────────────
-export const getOwnItemsHandler = async (req: AuthRequest, res: Response) => {
-  const items = await getOwnItems(req.userId!);
-  res.json(items);
-};

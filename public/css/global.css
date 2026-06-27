@@ -9,7 +9,10 @@
     --footer-bg-color: rgb(255, 255, 255);
     --text-color: rgb(59, 65, 69);
     --text-color-hover: rgb(0, 0, 0);
+    --text-color-gradient-1: rgba(221, 59, 186, 0);
+    --text-color-gradient-2: rgb(221, 59, 186);
     --h1-span-color: rgb(99, 163, 9);
+    --h1-span-color-animation: rgb(190, 218, 69);
     --catalog-bg-color: rgb(99, 163, 9);
     --card-bg-color: rgb(255, 255, 255);
     --button-bg-color: rgb(117, 192, 12);
@@ -34,7 +37,10 @@
     --footer-bg-color: rgb(26, 34, 48);
     --text-color: rgb(203, 213, 225);
     --text-color-hover: rgb(255, 255, 255);
+    --text-color-gradient-1: rgba(221, 59, 186, 0);
+    --text-color-gradient-2: rgb(221, 59, 186);
     --h1-span-color: rgb(147, 184, 96);
+    --h1-span-color-animation: rgb(241, 243, 110);
     --catalog-bg-color: rgb(147, 184, 96);
     --card-bg-color: rgb(39, 49, 66);
     --button-bg-color: rgb(147, 184, 96);
@@ -55,7 +61,14 @@
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
 }
-
+main{
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
 body{
     /* background-color: var(--body-bg-color); */
     color: var(--text-color);

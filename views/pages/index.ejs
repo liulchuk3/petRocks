@@ -12,7 +12,7 @@
     <%- include('../partials/sidebar') %>
 
     <main>
-        <h1><%= t('index.h1-part-one') %> <br> <span><%= t('index.h1-part-two') %></span></h1>
+        <h1><%= t('index.h1-part-one') %> <br> <span class="h1-span-animation"><%= t('index.h1-part-two') %></span></h1>
         <p class="home-p-description1"><%= t('index.p-description') %></p>
 
         <a href="/<%= currentLng %>/catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
@@ -23,7 +23,7 @@
 
             <div class="rocks-container top-rocks-container">
                 <% items.hitItems.forEach(item => { %>
-                    <div class="rock-card">
+                    <div class="rock-card rock-card-animation">
                         <a href="/product/<%= item.slug %>" class="rock-card-image-link">
                             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                         </a>
@@ -49,7 +49,7 @@
 
             <div class="rocks-container bottom-rocks-container">
                 <% items.newItems.forEach(item => { %>
-                    <div class="rock-card">
+                    <div class="rock-card rock-card-animation">
                         <div class="user-div"></div>
                         <a href="/product/<%= item.slug %>" class="rock-card-image-link">
                             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">

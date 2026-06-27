@@ -12,21 +12,22 @@
     <%- include('../partials/sidebar') %>
 
     <main>
+        
 
-        <div class="rocks-container top-rocks-container">
-                <% items.hitItems.forEach(item => { %>
-                    <div class="rock-card">
-                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
-                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
-                        </a>
-                        <h2>
-                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
-                        </h2>
-                        <p class="price">$<%= item.price %></p>
-                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
-                    </div>
-                <% }) %>
-            </div>
+        <div class="catalog-card-container">
+            <% items.forEach(item => { %>
+                <div class="<% if (item.isActive) { %>catalog-rock-card<% } else { %>catalog-rock-card inactive<% } %>">
+                    <a href="/product/<%= item.slug %>" class="catalog-rock-card-image-link">
+                        <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                    </a>
+                    <h2>
+                        <a href="/product/<%= item.slug %>" class="catalog-rock-card-title-link"><%= item.name %></a>
+                    </h2>
+                    <p class="price">$<%= item.price %></p>
+                    <button class="<% if(item.isActive){ %>add-to-cart-btn<% } else { %>add-to-cart-btn inactive<% } %>" data-rock-id="<%= item.id %>">Add to Cart</button>
+                </div>
+            <% }) %>
+        </div>
 
     </main>
 
