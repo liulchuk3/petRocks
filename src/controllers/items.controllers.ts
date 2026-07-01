@@ -6,6 +6,7 @@ import {
   getAllItemsForHomePageService,
   getAllItemsForCatalogService,
   createAdminItemService,
+  getItemBySlugService
 } from '../services/items.service.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
@@ -24,7 +25,12 @@ export const getAllItemsForCatalogController = async () => {
   return itemsController;
 }
 
-
+// GET ITEM BY SLUG FOR THE ITEM PAGE
+export const getItemBySlugController = async (req: AuthRequest) => {
+  const normalSlug = Array.isArray(req.params.slug) ? req.params.slug.join('/') : req.params.slug;
+  const item = await getItemBySlugService(normalSlug);
+  return item;
+};
 
 // ── ADMIN: CREATE ITEM
 export const createAdminItemController = async (req: AuthRequest, res: Response) => {

@@ -43,8 +43,9 @@ return match ? decodeURIComponent(match[1]) : null;
 
 // Logout button handler
 const logoutBtn = document.getElementById('logout-btn');
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
+const logoutBtn2 = document.getElementById('logout-btn2');
+if (logoutBtn || logoutBtn2) {
+    (logoutBtn || logoutBtn2).addEventListener('click', async () => {
   try {
     const res = await apiFetch('/auth/logout', { method: 'POST' });
     const data = await res.json();
@@ -103,6 +104,58 @@ themeBtn.addEventListener('click', () => {
     localStorage.setItem('theme', 'light');
   }
 });
+
+
+
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.addEventListener('click', (e) => {
+  // Зупиняємо спливання, щоб клік на саму кнопку не спрацьовував як клік "зовні"
+  e.stopPropagation(); 
+  
+  // Перевіряємо поточний стан (відкрито чи закрито)
+  const isExpanded = langBtn.getAttribute('aria-expanded') === 'true';
+  
+  // Перемикаємо стан на протилежний
+  langBtn.setAttribute('aria-expanded', !isExpanded);
+});
+
+// Закриваємо дропдаун, якщо користувач клікнув у будь-якому іншому місці сайту
+document.addEventListener('click', () => {
+  if (langBtn.getAttribute('aria-expanded') === 'true') {
+    langBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+
+document.getElementById('lang-en').addEventListener('click', (e) => {
+  const selectedLanguage = 'en';
+  document.cookie = `i18next=${selectedLanguage}; path=/; max-age=31536000`;
+  const currentPath = window.location.pathname;
+  if (currentPath === '/' || currentPath === '/uk' || currentPath === '/en') {
+        // Якщо це була головна — просто кидаємо на префікс
+        window.location.href = `/${selectedLanguage}`;
+    } else {
+        // Якщо це була внутрішня сторінка (наприклад, "/uk/about"),
+        // відрізаємо старий префікс і додаємо новий: "/en/about"
+        const cleanPath = currentPath.replace(/^\/(uk|en)/, '');
+        window.location.href = `/${selectedLanguage}${cleanPath}`;
+    }
+})
+
+document.getElementById('lang-uk').addEventListener('click', (e) => {
+  const selectedLanguage = 'uk';
+  document.cookie = `i18next=${selectedLanguage}; path=/; max-age=31536000`;
+  const currentPath = window.location.pathname;
+  if (currentPath === '/' || currentPath === '/uk' || currentPath === '/en') {
+        // Якщо це була головна — просто кидаємо на префікс
+        window.location.href = `/${selectedLanguage}`;
+    } else {
+        // Якщо це була внутрішня сторінка (наприклад, "/uk/about"),
+        // відрізаємо старий префікс і додаємо новий: "/en/about"
+        const cleanPath = currentPath.replace(/^\/(uk|en)/, '');
+        window.location.href = `/${selectedLanguage}${cleanPath}`;
+    }
+})
 
 const languageSelect = document.getElementById('language');
 

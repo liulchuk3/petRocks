@@ -66,6 +66,23 @@ export const getAllItemsForCatalogService = async () => {
   return items;
 }
 
+// Get item by slug for the item page
+export const getItemBySlugService = async (slug: string) => {
+  return prisma.items.findUnique({
+    where: { slug },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      discountPrice: true,
+      description: true,
+      imageUrl: true,
+      slug: true,
+      owner: { select: { role: true } }
+    }
+  });
+}
+
 // Create a new item (Admin only has access to this)
 export const createAdminItemService = async (data: { name: string; description: string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
   try {

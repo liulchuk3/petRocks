@@ -3,6 +3,8 @@
         "sign-in": "Sign In",
         "language": "Language",
         "navigation-heading": "Navigation",
+        "add-to-cart": "Add to Cart",
+        "add-to-cart-v2": "Add to Cart",
         "navigation": {
             "catalog": "Catalog",
             "home": "Home",
@@ -75,6 +77,28 @@
         "item-added-success": "Item added successfully!",
         "item-added-error-type": "Error adding item. Only JPEG, PNG, WebP allowed.",
         "item-added-error-size": "Error adding item. File too large (max 5MB)."
+    },
+    "catalog": {
+        "sort": "Sort",
+        "filter": "Filter",
+        "sort-asc": "Price: Low to High",
+        "sort-desc": "Price: High to Low"
+    },
+    "itemPage": {
+        "reviews": "Reviews",
+        "otherItems": "Other Items",
+        "slug": "Slug",
+        "read-more": "Read More",
+        "submit-review": "Submit Review",
+        "review-placeholder": "Write your review here...",
+        "review-submitted": "Review submitted successfully!",
+        "advantages": "Advantages",
+        "advangate1": "Ecologically friendly and safe for the environment",
+        "advangate2": "Stylish design for interior decoration",
+        "advangate3": "Can be used as a gift",
+        "how-to-care": "How to Care for Your Pet Rock",
+        "care-instructions": "Pet rocks are low-maintenance companions. Keep them clean by gently wiping with a damp cloth. Avoid dropping them to prevent chipping. Display them in a dry area away from direct sunlight to maintain their color and finish.",
+        "more-rocks": "More Rocks"
     }
 
 }

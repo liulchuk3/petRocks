@@ -4,20 +4,37 @@ main {
     padding-top: 80px;
     min-height: 100vh;
 }
-.catalog-card-container {
+.sort-filter-div {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 2%;
-    align-items: center;
-    width: 100%;
+    padding: 0px 10px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
+.sort-filter-btn{
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.catalog-card-container {
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    }
 .catalog-rock-card {
     background-color: var(--card-bg-color);
     border-radius: 10px;
     margin-bottom: 2%;
     padding: 10px;
-    width: 48%;
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -92,7 +109,6 @@ main {
 
 
 @media (min-width: 1200px) {
-    /* MAIN STYLES ==================================== */
     main{
         width: 1200px;
         margin: 0px auto;
@@ -107,4 +123,3 @@ main {
     margin-bottom: 20px;
     }
 }
-/* MAIN STYLES ==================================== */

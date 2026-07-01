@@ -17,21 +17,21 @@
 
         <a href="/<%= currentLng %>/catalog" class="catalog-heading"><%= t('index.catalog-heading') %></a>
 
-        <a href="" class="collection-a"><h2 class="collection-h"><%= t('index.our-hits-heading') %></h2></a>
+        <a href="/<%= currentLng %>/catalog" class="collection-a"><h2 class="collection-h"><%= t('index.our-hits-heading') %></h2></a>
         <div class="rocks-wrapper">
             <button class="scroll-btn scroll-btn-top-left" aria-label="Scroll left">&#8249;</button>
 
             <div class="rocks-container top-rocks-container">
                 <% items.hitItems.forEach(item => { %>
                     <div class="rock-card rock-card-animation">
-                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
-                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                        <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-image-link">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name[currentLng] %>">
                         </a>
                         <h2>
-                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
+                            <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-title-link"><%= item.name[currentLng] || item.name.en %></a>
                         </h2>
                         <p class="price">$<%= item.price %></p>
-                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
+                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
                     </div>
                 <% }) %>
             </div>
@@ -51,14 +51,14 @@
                 <% items.newItems.forEach(item => { %>
                     <div class="rock-card rock-card-animation">
                         <div class="user-div"></div>
-                        <a href="/product/<%= item.slug %>" class="rock-card-image-link">
-                            <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                        <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-image-link">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.name[currentLng] || item.name.en %>">
                         </a>
                         <h2>
-                            <a href="/product/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
+                            <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-title-link"><%= item.name[currentLng] || item.name.en %></a>
                         </h2>
                         <p class="price">$<%= item.price %></p>
-                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>">Add to Cart</button>
+                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
                     </div>
                 <% }) %>
             </div>

@@ -1,22 +1,43 @@
 <header>
-    <button class="theme-circle-btn" id="theme-btn" aria-label="Змінити тему">
-  <!-- Іконка Сонця -->
-  <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle>
-    <line x1="12" y1="1" x2="12" y2="3"></line>
-    <line x1="12" y1="21" x2="12" y2="23"></line>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-    <line x1="1" y1="12" x2="3" y2="12"></line>
-    <line x1="21" y1="12" x2="23" y2="12"></line>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-  </svg>
+  <div class="header-left">
+    <div class="header-theme-switcher">
+      <button class="theme-circle-btn" id="theme-btn" aria-label="Змінити тему">
+      <!-- Іконка Сонця -->
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <!-- Іконка Місяця -->
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linec
+      ap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </div>
+
+    <div class="lang-switcher">
+  <button class="lang-current" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Перемикач мови">
+    <svg class="planet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+  </button>
   
-  <!-- Іконка Місяця -->
-  <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-  </svg>
+  <ul class="lang-dropdown">
+    <li><button class="lang-option" id="lang-en" data-lang="en">En</button></li>
+    <li><button class="lang-option" id="lang-uk" data-lang="uk">Укр</button></li>
+  </ul>
+</div>
+
+  </div>
+
 </button>
     <a href="/<%= currentLng %>" class="logo">
         <img 
@@ -25,8 +46,21 @@
             class="site-logo"
             id="site-logo"
         />
-        <!-- <img src="/images/petRocksLogoLight.png" alt="Pet Rocks Logo" class="logo-light" id="logo-light">
-        <img src="/images/petRocksLogoDark.png" alt="Pet Rocks Logo" class="logo-dark" id="logo-dark"> -->
     </a>
+
+    <% if (userData) { %>
+      <div class="header-profile">
+        <a href="/<%= currentLng %>/profile" class="header-profile-link1200">
+          <p class="sidebar-username-avatar"></p>
+          <p class="sidebar-username-name"><%= t('profile.tab-info') %></p>
+        </a>
+      </div>
+    <% } else { %>
+      <div class="header-profile">
+      <a href="/<%= currentLng %>/authorization-sign-in" class="header-sign-in1200"><%= t('global.sign-in') %></a>
+      </div>
+    <% } %>
+
     <button id="header-sidebar-open-btn" class="openButton">&#9776;</button>
+
 </header>

@@ -399,6 +399,7 @@ hr{
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.2s ease;
     animation: rock-card-fade-in 1s fade-in;
     }
     /* Sequential animation delays for cards */
@@ -432,7 +433,6 @@ hr{
     color: var(--text-color);
     padding: 0 10px;
     margin-top: 10px;
-    transition: all 0.2s ease;
     }
     .rock-card:hover{
     transition: all 0.2s ease;

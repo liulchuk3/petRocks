@@ -16,8 +16,8 @@ model Items {
   id            Int        @id @default(autoincrement())
   sku           String     @unique
   slug          String     @unique
-  name          String
-  description   String
+  name          Json       
+  description   Json
 
   price         Decimal    @db.Decimal(10, 2)
   discountPrice Decimal?   @db.Decimal(10, 2)

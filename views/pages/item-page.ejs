@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/item-page.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/cart') %>
+    <%- include('../partials/sidebar') %>
+
+    <main class="item-page-main">
+        <section class="item-hero">
+            <img class="item-hero__image" src="<%= item.imageUrl %>" alt="Товар Pet Rocks" />
+            <div class="item-hero__content">
+                <h1 class="item-hero__title"><%= item.name %></h1>
+                
+                <p class="item-hero__price">$<%= item.price %></p>
+
+                <div class="item-actions">
+                    <button class="add-to-cart-btn"><%= t('global.add-to-cart-v2') %></button>
+                    <button class="item-btn item-btn--ghost">❤︎</button>
+                </div>
+
+                <div class="description-wrapper">
+                    <p class="description-text" id="desc-text"><%= item.description %></p>
+                    <button class="read-more-toggle" id="desc-toggle"><%= t('itemPage.read-more') %></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="item-details">
+            <article class="item-card">
+                <h2><%= t('itemPage.advantages') %></h2>
+                <ul>
+                    <li><%= t('itemPage.advangate1') %></li>
+                    <li><%= t('itemPage.advangate2') %></li>
+                    <li><%= t('itemPage.advangate3') %></li>
+                </ul>
+            </article>
+            <article class="item-card">
+                <h2><%= t('itemPage.how-to-care') %></h2>
+                <p><%= t('itemPage.care-instructions') %></p>
+            </article>
+                </ul>
+        </section>
+
+        <section class="reviews-section">
+            <h2><%= t('itemPage.reviews') %></h2>
+        </section>
+
+            <a href="/<%= currentLng %>/catalog" class="collection-a"><h2 class="collection-h"><%= t('itemPage.more-rocks') %></h2></a>
+            <div class="rocks-wrapper">
+                <button class="scroll-btn scroll-btn-top-left" aria-label="Scroll left">&#8249;</button>
+
+                <div class="rocks-container top-rocks-container">
+                    <% items.hitItems.forEach(item => { %>
+                        <div class="rock-card rock-card-animation">
+                            <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-image-link">
+                                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                            </a>
+                            <h2>
+                                <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-title-link"><%= item.name %></a>
+                            </h2>
+                            <p class="price">$<%= item.price %></p>
+                            <button class="add-to-cart-btn2" data-rock-id="<%= item.id %>">Add to Cart</button>
+                        </div>
+                    <% }) %>
+                </div>
+
+            <button class="scroll-btn scroll-btn-top-right" aria-label="Scroll right">&#8250;</button>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+<script src="/js/item-page.js" type="module"></script>
+</body>
+</html>

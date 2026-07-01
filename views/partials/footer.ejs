@@ -10,6 +10,9 @@
 
     <% if (userData) { %>
     <a href="/<%= currentLng %>/admin">Admin</a>
+    <button id="logout-btn" class="logout-btn"><%= t('global.logout') %></button>
+    <% } else { %>
+    <a href="/<%= currentLng %>/login"><%= t('global.login') %></a>
     <% } %>
 
 </footer>
