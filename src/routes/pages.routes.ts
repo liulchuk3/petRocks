@@ -34,11 +34,32 @@ const router = Router();
         });
     });
 
+    router.get("/about", optionalAuth, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
+        res.render("pages/about", {
+            currentLng: req.language,
+            userData: userData ?? null,
+            userCartCount: userCartCount
+        });
+    });
+
+    router.get("/contact", optionalAuth, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
+        res.render("pages/contact", {
+            currentLng: req.language,
+            userData: userData ?? null,
+            userCartCount: userCartCount
+        });
+    });
+
     router.get("/rock/:slug", optionalAuth, async (req: AuthRequest, res) => {
         const itemsData = await getAllItemsForHomePageController();
         const item = await getItemBySlugController(req); // Уявна функція, яка дістає товар за slug
         const userData = req.userId ? await getShortUserData(req.userId) : null;
         const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
+        console.log("Item Data:", item); // Виводимо дані товару в консоль`
         res.render("pages/item-page", {
             currentLng: req.language,
             userData: userData ?? null, // дані користувача або null, якщо гість

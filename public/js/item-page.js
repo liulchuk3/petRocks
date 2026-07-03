@@ -1,23 +1,18 @@
 const toggleBtn = document.getElementById('desc-toggle');
-const wrapper = document.querySelector('.description-wrapper');
+const wrapper = document.getElementById('desc-wrapper');
 const descText = document.getElementById('desc-text');
 
-descText.addEventListener('click', () => {
-  wrapper.classList.toggle('expanded');
-  if (wrapper.classList.contains('expanded')) {
-    toggleBtn.textContent = 'Згорнути';
-  } else {
-    toggleBtn.textContent = 'Читати далі';
-  }
-});
+if (toggleBtn && wrapper && descText) {
+  const updateToggleLabel = () => {
+    toggleBtn.textContent = wrapper.classList.contains('expanded') ? 'Згорнути' : 'Читати далі';
+  };
 
-toggleBtn.addEventListener('click', () => {
-  wrapper.classList.toggle('expanded');
-  
-  // Змінюємо текст кнопки залежно від стану
-  if (wrapper.classList.contains('expanded')) {
-    toggleBtn.textContent = 'Згорнути';
-  } else {
-    toggleBtn.textContent = 'Читати далі';
-  }
-});
+  const toggleDescription = () => {
+    wrapper.classList.toggle('expanded');
+    updateToggleLabel();
+  };
+
+  descText.addEventListener('click', toggleDescription);
+  toggleBtn.addEventListener('click', toggleDescription);
+  updateToggleLabel();
+}

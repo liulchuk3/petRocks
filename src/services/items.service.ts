@@ -84,11 +84,12 @@ export const getItemBySlugService = async (slug: string) => {
 }
 
 // Create a new item (Admin only has access to this)
-export const createAdminItemService = async (data: { name: string; description: string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
+export const createAdminItemService = async (data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
+  console.log('Received data:', data);
   try {
     const imageUrl = await compressAndSave(imageFile);
 
-    const slug = data.name // Генерація slug з назви товару
+    const slug = data["name-en"] // Генерація slug з назви товару
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9\s-]/g, '')
@@ -98,8 +99,15 @@ export const createAdminItemService = async (data: { name: string; description: 
     const sku = `SKU-${Date.now()}-${Math.random().toString(36).slice(2).toUpperCase()}`; // Генерація SKU
 
     const item = await prisma.items.create({
-      data: { name: data.name,
-        description: data.description,
+      data: { 
+        name: {
+        en: data["name-en"],
+        uk: data["name-uk"]
+        },
+        description: {
+        en: data["description-en"],
+        uk: data["description-uk"]
+        },
         price: data.price,
         sku,
         slug,

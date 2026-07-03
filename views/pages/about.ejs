@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/cart') %>
+    <%- include('../partials/sidebar') %>
+
+    <main class="page-about">
+        <div class="container">
+            <h1><%= t('global.navigation.about') %></h1>
+
+            <div class="about-content">
+                <% if (currentLng === 'uk') { %>
+                    <p>Ми — невелика команда ентузіастів, яка створює унікальні "пет-роки" з любов'ю і гумором. Кожен камінець ретельно підбирається, прикрашається та тестується, щоб приносити радість своїм новим власникам.</p>
+                    <p>Наша місія — дарувати прості, але душевні предмети, що роблять щоденне життя трішки веселішим.</p>
+                <% } else { %>
+                    <p>We are a small team of enthusiasts crafting unique "pet rocks" with care and a sense of humor. Each rock is carefully selected, decorated and prepared to bring a smile to its new owner.</p>
+                    <p>Our mission is to deliver simple, heartfelt items that make everyday life a little brighter.</p>
+                <% } %>
+            </div>
+
+            <section class="team">
+                <h2><%= currentLng === 'uk' ? 'Наша команда' : 'Our team' %></h2>
+                <div class="team-grid">
+                    <% 
+                    const team = [
+                        { name: currentLng === 'uk' ? 'Алекс' : 'Alex', role: currentLng === 'uk' ? 'Засновник' : 'Founder', img: '/images/alex.jpg' },
+                        { name: currentLng === 'uk' ? 'Дар`я' : 'Daria', role: currentLng === 'uk' ? 'Дизайнер' : 'Designer', img: '/images/daria.png' },
+                        { name: currentLng === 'uk' ? 'Сергій' : 'Sergiy', role: currentLng === 'uk' ? 'Логіст' : 'Logistics', img: '/images/sergiy.png' }
+                    ];
+                    %>
+                    <% team.forEach(member => { %>
+                        <div class="team-member">
+                            <img src="<%= member.img %>" alt="<%= member.name %>" class="team-member-image">
+                            <p class="member-name"><%= member.name %></p>
+                            <p class="member-role"><%= member.role %></p>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+</body>
+</html>

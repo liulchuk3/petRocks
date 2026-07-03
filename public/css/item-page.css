@@ -88,7 +88,7 @@ main {
 .read-more-toggle {
     background: none;
     border: none;
-    color: #2563eb;
+    color: var(--text-color);
     font-weight: 600;
     cursor: pointer;
     padding: 0;
@@ -100,6 +100,9 @@ main {
 }
 /* --------------------------------------------- */
 
+.description-text1200 {
+    display: none;
+}
 .item-actions {
     margin: 15px 0;
     display: flex;
@@ -107,18 +110,22 @@ main {
     justify-content: center;
     gap: 10px;
 }
-
+.item-btn--ghost {
+    width: fit-content;
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+}
 .item-btn {
-    border: none;
+    border: 1px solid var(--text-color);
     border-radius: 999px;
     padding: 11px 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .item-btn:hover {
-    transform: translateY(-1px);
+    border-color: var(--text-color-hover);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
 }
 
 .add-to-cart-btn {
@@ -157,12 +164,6 @@ main {
     background-color: var(--text-color);
 }
 
-.item-btn--ghost {
-    width: fit-content;
-    background: transparent;
-    color: var(--text-color);
-    border: 1px solid rgba(15, 23, 42, 0.12);
-}
 
 .item-details {
     padding: 0px 10px;
@@ -370,17 +371,30 @@ main {
 }
 
 @media (min-width: 1200px) {
-    main {
-        padding-top: 80px;
-    }
+main {
+    padding-top: 120px;
+}
 
-    .item-hero {
-        grid-template-columns: 1.1fr 0.9fr;
-        align-items: center;
-        padding: 24px;
-    }
+.item-hero {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    padding: 24px;
+    margin-bottom: 70px;
+}
 
-    .item-details {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.item-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.description-wrapper {
+display: none;
+}
+.description-text1200 {
+    padding: 20px 0px 10px 0px;
+    display: block;
+    width: 80%;
+    line-height: 1.6em;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 16px;
+}
 }

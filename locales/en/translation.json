@@ -1,6 +1,10 @@
 {
     "global": {
+        "our-contacts": "Our Contacts",
+        "other-actions": "Other Actions",
         "sign-in": "Sign In",
+        "login": "Sign In",
+        "apiPage": "API",
         "language": "Language",
         "navigation-heading": "Navigation",
         "add-to-cart": "Add to Cart",
@@ -69,8 +73,10 @@
         "view-items": "Items",
         "view-orders": "Orders",
         "view-dashboard": "Dashboard",
-        "field-name": "Name",
-        "field-description": "Description",
+        "field-name-ua": "Name (Ukrainian)",
+        "field-name-en": "Name (English)",
+        "field-description-ua": "Description (Ukrainian)",
+        "field-description-en": "Description (English)",
         "field-price": "Price",
         "field-image": "Image",
         "submit": "Add Item",

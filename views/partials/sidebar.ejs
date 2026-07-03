@@ -3,8 +3,6 @@
         
         <% if (userData) { %>
             <a href="/<%= currentLng %>/profile" class="sidebar-profile-link">
-                <!-- <img src="<%= userData.imageUrl || '/images/default-avatar.svg' %>" alt="User Avatar" class="sidebar-user-avatar">
-                <span class="sidebar-user-name"><%= userData.username || userData.email %></span> -->
                 <p class="sidebar-username-avatar"></p>
                 <p class="sidebar-username-name"><%= userData.username || userData.email %></p>
             </a>
@@ -21,13 +19,13 @@
     <p class="sidebar-description-navigation"><%= t('global.navigation-heading') %></p>
     <nav class="sidebar-nav" aria-label="Sidebar Navigation">
         <a href="/<%= currentLng %>/catalog" class="sidebar-link"><%= t('global.navigation.catalog') %></a>
-        <a href="/<%= currentLng %>/home" class="sidebar-link"><%= t('global.navigation.home') %></a>
+        <a href="/<%= currentLng %>/" class="sidebar-link"><%= t('global.navigation.home') %></a>
         <a href="/<%= currentLng %>/about" class="sidebar-link"><%= t('global.navigation.about') %></a>
         <a href="/<%= currentLng %>/contact" class="sidebar-link"><%= t('global.navigation.contact') %></a>
     </nav>
 
     <% if (userData) { %>
-    <button id="logout-btn" class="logout-btn"><%= t('global.logout') %></button>
+    <button id="logout-btn-sidebar" class="logout-btn logout-btn-sidebar"><%= t('global.logout') %></button>
     <% } %>
 
 </aside>

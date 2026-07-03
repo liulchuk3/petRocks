@@ -34,14 +34,13 @@ export const getItemBySlugController = async (req: AuthRequest) => {
 
 // ── ADMIN: CREATE ITEM
 export const createAdminItemController = async (req: AuthRequest, res: Response) => {
-  const { name, description, price } = req.body;
+  const { "name-uk": nameUk, "name-en": nameEn, "description-uk": descriptionUk, "description-en": descriptionEn, price } = req.body;
   const imageFile = req.file;
   const ownerId = req.userId!; // Ensure ownerId is set to the authenticated user's ID
-
-  if (!name || !description || !price || !imageFile) {
+  if (!nameUk || !nameEn || !descriptionUk || !descriptionEn || !price || !imageFile) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
-  const response = await createAdminItemService({ name, description, price, ownerId }, imageFile);
+  const response = await createAdminItemService({ "name-uk": nameUk, "name-en": nameEn, "description-uk": descriptionUk, "description-en": descriptionEn, price, ownerId }, imageFile);
   res.json(response);
 }
 

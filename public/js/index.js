@@ -42,22 +42,23 @@ return match ? decodeURIComponent(match[1]) : null;
 
 
 // Logout button handler
-const logoutBtn = document.getElementById('logout-btn');
-const logoutBtn2 = document.getElementById('logout-btn2');
-if (logoutBtn || logoutBtn2) {
-    (logoutBtn || logoutBtn2).addEventListener('click', async () => {
-  try {
-    const res = await apiFetch('/auth/logout', { method: 'POST' });
-    const data = await res.json();
-    if (data.success) {
-      const lang = getCookie('i18next') || 'uk'; // Отримуємо мову з куки або встановлюємо за замовчуванням 'uk'
-      window.location.href = '/' + lang;
+// Знаходимо всі кнопки з цим класом
+const logoutButtons = document.querySelectorAll('.logout-btn');
+
+logoutButtons.forEach(btn => {
+  btn.addEventListener('click', async () => {
+    try {
+      const res = await apiFetch('/auth/logout', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        const lang = getCookie('i18next') || 'uk';
+        window.location.href = '/' + lang;
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
     }
-  } catch (error) {
-    console.error('Logout failed:', error);
-  }
-    });
-}
+  });
+});
 
 document.getElementById('header-sidebar-open-btn').addEventListener('click', () => {
     document.querySelector('.sidebar').classList.add('open-sidebar');

@@ -8,6 +8,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    
     <%- include('../partials/sidebar') %>
 
     <main>
@@ -44,7 +45,7 @@
                         <% } %>
                         <p><strong><%= t("profile.email") %>:</strong> <%= userData.email %></p>
                     </div>
-                    <button id="logout-btn2" class="logout-btn"><%= t('global.logout') %></button>
+                    <button id="logout-btn-profile" class="logout-btn logout-btn-profile"><%= t('global.logout') %></button>
                 </div>
             </div>
 

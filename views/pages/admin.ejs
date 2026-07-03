@@ -23,13 +23,17 @@
 
         <div class="admin-addItem-container container-active" id="admin-addItem-container">
             <form id="addItemForm" enctype="multipart/form-data">
-                <div class="form-field">
-                    <label for="name"><%= t("admin.field-name") %></label>
-                    <input type="text" id="name" name="name" required>
+                <div class="form-field name-field">
+                    <label for="name-ua"><%= t("admin.field-name-ua") %></label>
+                    <input type="text" id="name-ua" name="name-uk" required>
+                    <label for="name-en"><%= t("admin.field-name-en") %></label>
+                    <input type="text" id="name-en" name="name-en" required>
                 </div>
-                <div class="form-field">
-                    <label for="description"><%= t("admin.field-description") %></label>
-                    <textarea id="description" name="description" required></textarea>
+                <div class="form-field description-field">
+                    <label for="description-ua"><%= t("admin.field-description-ua") %></label>
+                    <textarea id="description-ua" name="description-uk" required></textarea>
+                    <label for="description-en"><%= t("admin.field-description-en") %></label>
+                    <textarea id="description-en" name="description-en" required></textarea>
                 </div>
                 <div class="form-field">
                     <label for="price"><%= t("admin.field-price") %></label>

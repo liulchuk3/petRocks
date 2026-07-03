@@ -1,18 +1,58 @@
-<footer class="footer">
-    <p>+380 123 456 789</p>
+<footer class="site-footer">
+    <div class="footer-container">
+        <!-- Колонка 1: Бренд та контакти -->
+        <div class="contacts-and-navigation">
+            <div class="contact-info">
+                <h2 class="footer-heading"><%= t('global.our-contacts') %></h2>
+                <p class="footer-phone footer-p">+380 103 526 689</p>
+                <p class="footer-phone footer-p">+380 223 456 779</p>
+                <p class="footer-email footer-p">info@petrocksstore.com</p>
+            </div>
 
-    <p>&copy; 2026 Pet Rocks Store. <%= t('global.footer.all-rights-reserved') %></p>
+            <!-- Колонка 2: Навігація -->
+            <div class="footer-navigation">
+                <h2 class="footer-heading"><%= t('global.navigation-heading') %></h2>
+                <nav aria-label="<%= t('global.navigation-heading') %>">
+                    <ul class="footer-links">
+                        <li><a class="footer-link" href="/<%= currentLng %>/"><%= t('global.navigation.home') %></a></li>
+                        <li><a class="footer-link" href="/<%= currentLng %>/catalog"><%= t('global.navigation.catalog') %></a></li>
+                        <li><a class="footer-link" href="/<%= currentLng %>/about"><%= t('global.navigation.about') %></a></li>
+                        <li><a class="footer-link" href="/<%= currentLng %>/contact"><%= t('global.navigation.contact') %></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-    <div class="footer-language-switcher">
-        <a href="#"><p>Eng</p></a>
-        <a href="#"><p>Укр</p></a>
+        <!-- Колонка 3: Налаштування та дії -->
+        <div class="language-and-actions">
+            <div class="footer-widget">
+                <h2 class="footer-heading"><%= t('global.language') %></h2>
+                <div class="footer-language-switcher">
+                    <a href="/en" class="lang-link">Eng</a>
+                    <span class="lang-divider">|</span>
+                    <a href="/uk" class="lang-link">Укр</a>
+                </div>
+            </div>
+
+            <div class="footer-widget">
+                <h2 class="footer-heading"><%= t('global.other-actions') %></h2>
+                <% if (userData) { %>
+                    <a class="footer-btn btn-admin" href="/<%= currentLng %>/admin">Admin</a>
+                    <a class="footer-btn" href="/<%= currentLng %>/api-page"><%= t('global.apiPage') %></a>
+                    <button id="logout-btn-footer" class="footer-btn footer-btn--logout logout-btn"><%= t('global.logout') %></button>
+                    
+                <% } else { %>
+                    <a class="footer-btn btn-login" href="/<%= currentLng %>/authorization-sign-in"><%= t('global.login') %></a>
+                    <a class="footer-btn" href="/<%= currentLng %>/api-page"><%= t('global.apiPage') %></a>
+                <% } %>
+            </div>
+        </div>
     </div>
 
-    <% if (userData) { %>
-    <a href="/<%= currentLng %>/admin">Admin</a>
-    <button id="logout-btn" class="logout-btn"><%= t('global.logout') %></button>
-    <% } else { %>
-    <a href="/<%= currentLng %>/login"><%= t('global.login') %></a>
-    <% } %>
-
+    <!-- Нижня панель копірайту -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <p class="footer-meta">&copy; 2026 Pet Rocks Store. <%= t('global.footer.all-rights-reserved') %></p>
+        </div>
+    </div>
 </footer>

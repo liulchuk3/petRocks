@@ -115,7 +115,6 @@ body{
     opacity: 1;
     pointer-events: auto;
 }
-
 aside .sidebar-sidebar-close-btn {
     -webkit-tap-highlight-color: transparent;
     font-size: 30px;
@@ -129,15 +128,20 @@ aside .sidebar-sidebar-close-btn {
     top: 14px;
     right: 20px;
 }
+.sidebar-username-avatar{
+    margin: 0;
+    padding: 0;
+}
 .sidebar-username-avatar::before{
     content: "";
     display: inline-block;
     position: relative;
     left: 0px;
-    top: 3px;
+    top: 1px;
     width: 20px;
     height: 20px;
     padding-right: 7px;
+    margin: 0;
     -webkit-mask-image: url('/images/profile-icon.svg');
     mask-image: url('/images/profile-icon.svg');
     -webkit-mask-size: contain;
@@ -147,13 +151,23 @@ aside .sidebar-sidebar-close-btn {
     background-color: var(--text-color);
 }
 .sidebar-username-name {
+    font-size: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    
     margin: 0;
-    padding-top: 5px;
+    
     color: var(--text-color);
+}
+.sidebar-profile-link{
+    background-color: var(--sing-in-link-bg-color);
+    width: 200px;
+    border-radius: 8px;
+    padding: 10px 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin: 8px 0 10px 0;
 }
 .sidebar-sign-in{
     text-decoration: none;
@@ -260,8 +274,21 @@ nav {
         opacity: 1;
     }
 }
-
 .logout-btn {
+    
+}
+.logout-btn-profile{
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.logout-btn-sidebar{
     margin-top: 50px;
     padding: 10px 15px;
     font-size: 18px;
@@ -272,10 +299,14 @@ nav {
     cursor: pointer;
     transition: all 0.1s ease;
 }
-.logout-btn:hover {
-    background-color: var(--text-color);
-    color: var(--body-bg-color);
-    transition: all 0.1s ease;
+.logout-btn-footer {
+    cursor: pointer;
+    color: var(--text-color);
+    border: none;
+    background: none;
+    text-decoration: underline;
+    padding: 5px 10px;
+    font-size: 16px;
 }
 /* SIDEBAR STYLES ==================================== */
 /* MAIN STYLES ==================================== */
@@ -293,19 +324,80 @@ footer{
     padding: 20px 0;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;
 }
-footer p {
-    margin: 5px 0;
-    color: var(--text-color);
-}
-.footer-language-switcher {
+.footer-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.contacts-and-navigation{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     gap: 20px;
 }
-.footer-language-switcher a {
-    color: var(--text-color);
-    font-size: 18px;
+.contact-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.footer-heading{
+    margin: 0px 0px 5px 0px;
+}
+.footer-p{
+    margin: 0;
+}
+.footer-navigation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+}
+.footer-links{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.language-and-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+}
+.footer-widget{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer-link{
+    color: var(--text-color);
+}
+.lang-link{
+    color: var(--text-color);
+}
+.footer-btn{
+    text-decoration: underline;
+    color: var(--text-color);
+    font-size: 16px;
+}
+.footer-btn--logout{
+    padding: 0px;
+    cursor: pointer;
+    color: var(--text-color);
+    border: none;
+    background: none;
+    text-decoration: underline;
+    font-size: 16px;
+}
+.footer-meta{
+    margin-top: 20px;
+}
+
 /* FOOTER STYLES ==================================== */
 
 
@@ -322,3 +414,12 @@ main{
 
 }
 /* MAIN STYLES ==================================== */
+/* FOOTER STYLES ==================================== */
+@media (min-width: 1200px) {
+.footer-container{
+align-items: flex-start;
+gap: 40px;
+flex-direction: row;
+}
+}
+/* FOOTER STYLES ==================================== */

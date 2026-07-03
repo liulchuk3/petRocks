@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/cart') %>
+    <%- include('../partials/sidebar') %>
+
+    <main class="page-contact">
+        <h1><%= t('global.navigation.contact') %></h1>
+
+        <section class="contact-grid">
+            <div class="contact-info">
+                <h2><%= t('global.our-contacts') %></h2>
+                <p class="footer-phone footer-p">+380 103 526 689</p>
+                <p class="footer-phone footer-p">+380 223 456 779</p>
+                <p class="footer-email footer-p">info@petrocksstore.com</p>
+                <p><strong><%= currentLng === 'uk' ? 'Адреса' : 'Address' %>:</strong> 123 Rock Lane, Kyiv</p>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1171.2340540197968!2d30.53758509738694!3d50.43809314218034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sua!4v1783054516058!5m2!1sru!2sua" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+</body>
+</html>
