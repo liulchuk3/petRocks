@@ -1,6 +1,10 @@
 {
     "global": {
+        "our-contacts": "Наші контакти",
+        "other-actions": "Інші дії",
         "sign-in": "Увійти",
+        "login": "Увійти",
+        "apiPage": "API",
         "sign-up": "Зареєструватися",
         "language": "Мова",
         "navigation-heading": "Навігація",
@@ -80,16 +84,29 @@
         "item-added-error-size": "Помилка при додаванні товару. Файл занадто великий (макс. 5МБ)."
     },
     "catalog": {
-        "sort": "Сортувати",
-        "filter": "Фільтр",
-        "sort-asc": "Ціна: від низької до високої",
-        "sort-desc": "Ціна: від високої до низької"
+    "filter-sort": "Фільтр / Сортування",
+    "sort": "Сортувати",
+    "filter": "Фільтр",
+    "sort-by-price": "Сортувати за ціною",
+    "sort-by-date": "Сортувати за датою",
+    "price-range": "Ціновий діапазон",
+    "sort-asc": "Ціна: від низької до високої",
+    "sort-desc": "Ціна: від високої до низької",
+    "sort-newest": "Дата: новіші",
+    "sort-oldest": "Дата: старіші",
+    "apply": "Застосувати",
+    "close": "Закрити",
+    "form": {
+            "max-price": "Max",
+            "min-price": "Min"
+            }
     },
     "itemPage": {
         "reviews": "Відгуки",
         "otherItems": "Інші камінчики",
         "slug": "Слаг",
         "read-more": "Читати більше",
+        "read-less": "Згорнути",
         "submit-review": "Відправити відгук",
         "review-placeholder": "Напишіть ваш відгук тут...",
         "review-submitted": "Відгук успішно відправлений!",

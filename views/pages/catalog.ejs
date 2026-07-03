@@ -14,8 +14,44 @@
     <main>
         
         <div class="sort-filter-div">
-            <button id="filter" class="sort-filter-btn"><%= t('catalog.filter') %></button>
-            <button id="sort" class="sort-filter-btn"><%= t('catalog.sort') %></button>
+            <button id="filter" class="sort-filter-btn"><%= t('catalog.filter-sort') %></button>
+            <div class="sort-filter-box">
+                <form method="GET" action="/<%= currentLng %>/catalog">
+                    <div class="form-div">
+                        <div class="filter-form-part form-part">
+                            <h2><%= t('catalog.filter') %></h2>
+                            <h3><%= t('catalog.price-range') %></h3>
+                            <div class="min-max-price">
+                                <div>
+                                    <input type="number" id="min-price" name="min-price" placeholder="<%= t('catalog.form.min-price') %>" value="<%= selectedFilters?.minPrice ?? '' %>">
+                                </div>
+                                <div>
+                                    <input type="number" id="max-price" name="max-price" placeholder="<%= t('catalog.form.max-price') %>" value="<%= selectedFilters?.maxPrice ?? '' %>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sort-form-part form-part">
+                            <h2><%= t('catalog.sort') %></h2>
+                            <h3><%= t('catalog.sort-by-price') %></h3>
+                            <select name="sort-by-price" id="sort">
+                                <option value=""><%= t('catalog.sort-by-price') %></option>
+                                <option value="desc" <%= selectedFilters?.sortByPrice === 'desc' ? 'selected' : '' %>><%= t('catalog.sort-desc') %></option>
+                                <option value="asc" <%= selectedFilters?.sortByPrice === 'asc' ? 'selected' : '' %>><%= t('catalog.sort-asc') %></option>
+                            </select>
+                            <h3><%= t('catalog.sort-by-date') %></h3>
+                            <select name="sort-by-date" id="sort-by-date">
+                                <option value=""><%= t('catalog.sort-by-date') %></option>
+                                <option value="newest" <%= selectedFilters?.sortByDate === 'newest' ? 'selected' : '' %>><%= t('catalog.sort-newest') %></option>
+                                <option value="oldest" <%= selectedFilters?.sortByDate === 'oldest' ? 'selected' : '' %>><%= t('catalog.sort-oldest') %></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="apply-btn"><%= t('catalog.apply') %></button>
+                </form>
+                <button class="close-sort-filter"><%= t('catalog.close') %></button>
+            </div>
         </div>
         <div class="catalog-card-container">
             <% items.forEach(item => { %>

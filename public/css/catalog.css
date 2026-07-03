@@ -7,12 +7,13 @@ main {
 .sort-filter-div {
     display: flex;
     justify-content: center;
+    
     padding: 0px 10px;
     gap: 10px;
     margin-bottom: 20px;
 }
 .sort-filter-btn{
-    width: 100%;
+    width: 150px;
     padding: 10px 15px;
     font-size: 18px;
     color: var(--text-color);
@@ -107,6 +108,115 @@ main {
     background-color: var(--text-color);
 }
 
+.sort-filter-box{
+    background-color: var(--card-bg-color);
+    width: 100%;
+    height: auto;
+    position: absolute;
+    padding-top: 60px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.sort-filter-box-active{
+    display: flex;
+}
+.close-sort-filter{
+    color: var(--text-color);
+    border: none;
+    width: 150px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+.close-sort-filter:hover{
+    color: var(--text-color-hover);
+}
+.sort-filter-box form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+.form-div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.filter-form-part{
+    display: flex;
+    flex-direction: column;
+}
+.filter-form-part h2{
+    text-align: center;
+    margin: 0;
+}
+.filter-form-part h3{
+    margin:5px 0px;
+}
+.sort-form-part select{
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 18px;
+    height: 36px;
+    border-radius: 10px;
+}
+.sort-form-part h2{
+    text-align: center;
+    margin: 0;
+}
+.sort-form-part h3{
+    margin:5px 0px;
+}
+.form-part{
+    width: 50%;
+}
+.form-part h2{
+    text-align: center;
+}
+.min-max-price{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.min-max-price label{
+    font-size: 16px;
+}
+.min-max-price div{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+}
+.min-max-price div input{
+    width: 100%;
+    font-size: 18px;
+    height: 36px;
+    border: 1px solid var(--text-color);
+    border-radius: 10px;
+}
+.apply-btn{
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
+    padding: 10px 10px;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.295);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.apply-btn:hover {
+    background-color: var(--button-bg-color-hover);
+    color: var(--text-color);
+    text-shadow: none;
+    border-color: var(--button-border-color-hover);
+}
+
 
 @media (min-width: 1200px) {
     main{
@@ -121,5 +231,8 @@ main {
     gap: 20px;
     width: 100%;
     margin-bottom: 20px;
+    }
+    .sort-filter-btn{
+    width: 50%;
     }
 }

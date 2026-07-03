@@ -85,10 +85,22 @@
         "item-added-error-size": "Error adding item. File too large (max 5MB)."
     },
     "catalog": {
+        "filter-sort": "Filter / Sort",
         "sort": "Sort",
         "filter": "Filter",
+        "sort-by-price": "Sort by Price",
+        "sort-by-date": "Sort by Date",
+        "price-range": "Price Range",
         "sort-asc": "Price: Low to High",
-        "sort-desc": "Price: High to Low"
+        "sort-desc": "Price: High to Low",
+        "sort-newest": "Date: Newest",
+        "sort-oldest": "Date: Oldest",
+        "apply": "Apply",
+        "close": "Close",
+        "form": {
+            "max-price": "Max",
+            "min-price": "Min"
+        }
     },
     "itemPage": {
         "reviews": "Reviews",

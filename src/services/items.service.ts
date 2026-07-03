@@ -1,7 +1,9 @@
+import { Prisma } from '../../generated/prisma/client.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 import { Response } from 'express';
+import type { CatalogQueryOptions } from '../utils/catalog-query.js';
 
 // Get all items for the home page (active items only)
 export const getAllItemsForHomePageService = async () => {
@@ -46,9 +48,35 @@ const hitItemsService = items.sort(() => Math.random() - 0.5);
   return { hitItems: hitItemsService, newItems: newItemsService };
 }
 
-// Get all items for the catalog page (active items only)
-export const getAllItemsForCatalogService = async () => {
-  const fullItemsData = await prisma.items.findMany({
+// Get all items for the catalog page with optional server-side filtering and sorting
+export const getAllItemsForCatalogService = async (options: CatalogQueryOptions = {}) => {
+  const where: Prisma.ItemsWhereInput = {};
+  const orderBy: Prisma.ItemsOrderByWithRelationInput[] = [
+    { isActive: 'desc' },
+  ];
+
+  if (options.minPrice !== undefined || options.maxPrice !== undefined) {
+    where.price = {
+      ...(options.minPrice !== undefined ? { gte: options.minPrice } : {}),
+      ...(options.maxPrice !== undefined ? { lte: options.maxPrice } : {}),
+    };
+  }
+
+  if (options.sortByPrice) {
+    orderBy.push({ price: options.sortByPrice });
+  }
+
+  if (options.sortByDate) {
+    orderBy.push({ createdAt: options.sortByDate === 'newest' ? 'desc' : 'asc' });
+  }
+
+  if (!options.sortByPrice && !options.sortByDate) {
+    orderBy.push({ createdAt: 'desc' });
+  }
+
+  const items = await prisma.items.findMany({
+    where,
+    orderBy,
     select: {
       id: true,
       name: true,
@@ -60,8 +88,6 @@ export const getAllItemsForCatalogService = async () => {
       owner: { select: { role: true } }
     }
   });
-  
-  const items = fullItemsData.sort(() => Math.random() - 0.5).sort((a, b) => Number(b.isActive) - Number(a.isActive)); // Сортуємо за isActive, де true (1) буде перед false (0)
 
   return items;
 }

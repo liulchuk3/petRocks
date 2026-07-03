@@ -19,10 +19,9 @@
                 <h1 class="item-hero__title"><%= item.name[currentLng] || item.name.en %></h1>
                 
                 <p class="item-hero__price">$<%= item.price %></p>
-                <p class="description-text1200" id="desc-text"><%= item.description[currentLng] || item.description.en %></p>
+                <p class="description-text1200"><%= item.description[currentLng] || item.description.en %></p>
                 <div class="item-actions">
                     <button class="add-to-cart-btn"><%= t('global.add-to-cart-v2') %></button>
-                    <button class="item-btn item-btn--ghost">❤︎</button>
                 </div>
 
                 <div class="description-wrapper" id="desc-wrapper">
@@ -47,10 +46,6 @@
                 <p><%= t('itemPage.care-instructions') %></p>
             </article>
                 </ul>
-        </section>
-
-        <section class="reviews-section">
-            <h2><%= t('itemPage.reviews') %></h2>
         </section>
 
             <a href="/<%= currentLng %>/catalog" class="collection-a"><h2 class="collection-h"><%= t('itemPage.more-rocks') %></h2></a>

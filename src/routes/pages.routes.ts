@@ -2,9 +2,8 @@ import { Router } from "express";
 import { AuthRequest, optionalAuth, requireAdmin, requireAuth } from "../middleware/auth.middleware.js";
 import { getShortUserData, getFullUserData } from "../services/getUserData.service.js"; // Уявна функція, яка дістає дані користувача за userId
 import { getCartCount } from "../services/items.service.js"; // Уявна функція, яка дістає кількість товарів у кошику користувача
-import { refresh } from "../controllers/auth.controller.js";
 import { getAllItemsForHomePageController, getAllItemsForCatalogController, getItemBySlugController } from "../controllers/items.controllers.js";
-import { string } from "zod";
+import { parseCatalogQuery } from "../utils/catalog-query.js";
 
 const router = Router();
 
@@ -12,7 +11,6 @@ const router = Router();
         const itemsData = await getAllItemsForHomePageController(); // Уявна функція, яка дістає всі товари з бази даних
         const userData = req.userId ? await getShortUserData(req.userId) : null; // Уявна функція, яка дістає дані користувача за userId
         const userCartCount = req.userId ? await getCartCount(req.userId!) : 0; // Уявна функція, яка дістає кількість товарів у кошику користувача
-        console.log("User Data:", userData); // Виводимо дані користувача в консоль
         res.render("pages/index", {
         currentLng: req.language,
         userData: userData ?? null, // дані користувача або null, якщо гість
@@ -23,13 +21,15 @@ const router = Router();
     });
 
     router.get("/catalog", optionalAuth, async (req: AuthRequest, res) => {
-        const itemsData = await getAllItemsForCatalogController(); // Уявна функція, яка дістає всі товари з бази даних
+        const selectedFilters = parseCatalogQuery(req.query);
+        const itemsData = await getAllItemsForCatalogController(selectedFilters); // Уявна функція, яка дістає всі товари з бази даних
         const userData = req.userId ? await getShortUserData(req.userId) : null;
         const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
         res.render("pages/catalog", {
             currentLng: req.language,
             userData: userData ?? null, // дані користувача або null, якщо гість
             userCartCount: userCartCount, // кількість товарів у кошику користувача
+            selectedFilters,
             items: itemsData, // масив товарів з бази даних
         });
     });
@@ -59,7 +59,6 @@ const router = Router();
         const item = await getItemBySlugController(req); // Уявна функція, яка дістає товар за slug
         const userData = req.userId ? await getShortUserData(req.userId) : null;
         const userCartCount = req.userId ? await getCartCount(req.userId!) : 0;
-        console.log("Item Data:", item); // Виводимо дані товару в консоль`
         res.render("pages/item-page", {
             currentLng: req.language,
             userData: userData ?? null, // дані користувача або null, якщо гість

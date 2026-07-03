@@ -10,6 +10,7 @@ import {
 } from '../services/items.service.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
+import type { CatalogQueryOptions } from '../utils/catalog-query.js';
 
 
 
@@ -20,8 +21,8 @@ export const getAllItemsForHomePageController = async () => {
 }
 
 // ALL ITEMS FOR CATALOG PAGE
-export const getAllItemsForCatalogController = async () => {
-  const itemsController = await getAllItemsForCatalogService();
+export const getAllItemsForCatalogController = async (options: CatalogQueryOptions = {}) => {
+  const itemsController = await getAllItemsForCatalogService(options);
   return itemsController;
 }
 
