@@ -23,13 +23,13 @@
 
             <%# ── Вкладки ─────────────────────────────────────────── %>
             <div class="profile-tabs">
-                <button class="profile-tab active" data-tab="info"><%= t("profile.tab-info") %></button>
-                <button class="profile-tab" data-tab="cart"><%= t("profile.tab-cart") %> <span class="tab-badge" id="cart-badge"></span></button>
-                <button class="profile-tab" data-tab="likes"><%= t("profile.tab-likes") %> <span class="tab-badge" id="likes-badge"></span></button>
+                <button class="profile-tab profile-tab-active" id="infoButton"><%= t("profile.tab-info") %></button>
+                <button class="profile-tab" id="cartButton"><%= t("profile.tab-cart") %> <span class="tab-badge" id="cart-badge"></span></button>
+                <button class="profile-tab" id="ordersButton"><%= t("profile.tab-orders") %> <span class="tab-badge" id="orders-badge"></span></button>
             </div>
 
             <%# ── Панель: Профіль ────────────────────────────────── %>
-            <div class="profile-panel active" id="panel-info">
+            <div class="profile-panel profile-panel-active" id="panel-info">
                 <div class="profile-info">
                     <img class="profile-picture"
                         src="<%= userData.imageUrl ? userData.imageUrl : '/images/default-avatar.svg' %>"
@@ -52,17 +52,17 @@
             <%# ── Панель: Кошик ──────────────────────────────────── %>
             <div class="profile-panel" id="panel-cart">
                 <div class="profile-panel-inner" id="cart-content">
-                    <p class="panel-loading"><%= t("profile.loading") %></p>
+                    <p class="panel-loading">Here's your cart content.</p>
                 </div>
                 <div class="cart-total" id="cart-total" style="display:none;">
                     <strong><%= t("profile.total") %>: </strong><span id="cart-total-value">$0.00</span>
                 </div>
             </div>
 
-            <%# ── Панель: Уподобання ─────────────────────────────── %>
-            <div class="profile-panel" id="panel-likes">
-                <div class="profile-panel-inner" id="likes-content">
-                    <p class="panel-loading"><%= t("profile.loading") %></p>
+            <%# ── Панель: Замовлення ─────────────────────────────── %>
+            <div class="profile-panel" id="panel-orders">
+                <div class="profile-panel-inner" id="orders-content">
+                    <p class="panel-loading">Here's your orders content.</p>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
     <div id="profile-i18n" hidden
         data-loading="<%= t('profile.loading') %>"
         data-cart-empty="<%= t('profile.cart-empty') %>"
-        data-likes-empty="<%= t('profile.likes-empty') %>"
+        data-orders-empty="<%= t('profile.orders-empty') %>"
         data-items-empty="<%= t('profile.items-empty') %>"
         data-total="<%= t('profile.total') %>"
         data-quantity="<%= t('profile.quantity') %>"

@@ -1,8 +1,7 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 import {
-  getCart, addToCart, updateCartQuantity, removeFromCart,
-  getLikes, toggleLike,
+  getCartCountService,
   getAllItemsForHomePageService,
   getAllItemsForCatalogService,
   createAdminItemService,
@@ -16,19 +15,19 @@ import type { CatalogQueryOptions } from '../utils/catalog-query.js';
 
 
 
-// ALL ITEMS FOR THE HOME PAGE (hits || new)
+// ── ALL ITEMS FOR THE HOME PAGE (hits || new)
 export const getAllItemsForHomePageController = async () => {
   const itemsController = await getAllItemsForHomePageService();
   return itemsController;
 }
 
-// ALL ITEMS FOR CATALOG PAGE
+// ── ALL ITEMS FOR CATALOG PAGE
 export const getAllItemsForCatalogController = async (options: CatalogQueryOptions = {}) => {
   const itemsController = await getAllItemsForCatalogService(options);
   return itemsController;
 }
 
-// GET ITEM BY SLUG FOR THE ITEM PAGE
+// ── GET ITEM BY SLUG FOR THE ITEM PAGE
 export const getItemBySlugController = async (req: AuthRequest) => {
   const normalSlug = Array.isArray(req.params.slug) ? req.params.slug.join('/') : req.params.slug;
   const item = await getItemBySlugService(normalSlug);
@@ -83,52 +82,43 @@ export const updateAdminItemController = async (req: AuthRequest, res: Response)
   res.json(response);
 }
 
+// ── GET CART COUNT ──────────────────────────────────────────────────────────────────────
+export const getCartCountController = async (userId: string) => {
+  const count = await getCartCountService(userId);
+  return count;
+};
+
 
 // ── CART ──────────────────────────────────────────────────────────────────────
+// export const getCartController = async (req: AuthRequest, res: Response) => {
+//   const cart = await getCartService(req.userId!);
+//   res.json(cart);
+// };
 
-export const getCartHandler = async (req: AuthRequest, res: Response) => {
-  const cart = await getCart(req.userId!);
-  res.json(cart);
-};
+// export const addToCartController = async (req: AuthRequest, res: Response) => {
+//   const itemId = Number(req.params.itemId);
+//   if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
 
-export const addToCartHandler = async (req: AuthRequest, res: Response) => {
-  const itemId = Number(req.params.itemId);
-  if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
+//   const cartItem = await addToCart(req.userId!, itemId);
+//   res.json(cartItem);
+// };
 
-  const cartItem = await addToCart(req.userId!, itemId);
-  res.json(cartItem);
-};
+// export const removeFromCartController = async (req: AuthRequest, res: Response) => {
+//   const itemId = Number(req.params.itemId);
+//   if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
 
-export const updateCartHandler = async (req: AuthRequest, res: Response) => {
-  const itemId = Number(req.params.itemId);
-  const quantity = Number(req.body.quantity);
-  if (isNaN(itemId) || isNaN(quantity)) return res.status(400).json({ error: 'Invalid data' });
+//   await removeFromCart(req.userId!, itemId);
+//   res.json({ success: true });
+// };
 
-  const result = await updateCartQuantity(req.userId!, itemId, quantity);
-  res.json(result ?? { removed: true });
-};
 
-export const removeFromCartHandler = async (req: AuthRequest, res: Response) => {
-  const itemId = Number(req.params.itemId);
-  if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
 
-  await removeFromCart(req.userId!, itemId);
-  res.json({ success: true });
-};
 
-// ── LIKES ─────────────────────────────────────────────────────────────────────
+//   export const updateCartController = async (req: AuthRequest, res: Response) => {
+//   const itemId = Number(req.params.itemId);
+//   const quantity = Number(req.body.quantity);
+//   if (isNaN(itemId) || isNaN(quantity)) return res.status(400).json({ error: 'Invalid data' });
 
-export const getLikesHandler = async (req: AuthRequest, res: Response) => {
-  const likes = await getLikes(req.userId!);
-  res.json(likes);
-};
-
-export const toggleLikeHandler = async (req: AuthRequest, res: Response) => {
-  const itemId = Number(req.params.itemId);
-  if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
-
-  const result = await toggleLike(req.userId!, itemId);
-  res.json(result);
-};
-
-// ── OWN ITEMS ─────────────────────────────────────────────────────────────────
+//   const result = await updateCartQuantity(req.userId!, itemId, quantity);
+//   res.json(result ?? { removed: true });
+// };

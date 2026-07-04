@@ -138,11 +138,10 @@ export const getItemByIdService = async (itemId: string) => {
   });
 };
 
-// Create a new item (Admin only has access to this)
+// Create a new item (Admin only)
 export const createAdminItemService = async (data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
   try {
     const imageUrl = await compressAndSave(imageFile);
-
     const slug = data["name-en"] // Генерація slug з назви товару
       .toLowerCase()
       .trim()
@@ -151,7 +150,6 @@ export const createAdminItemService = async (data: { "name-uk": string; "name-en
       + '-' + Date.now();
 
     const sku = `SKU-${Date.now()}-${Math.random().toString(36).slice(2).toUpperCase()}`; // Генерація SKU
-
     const item = await prisma.items.create({
       data: { 
         name: {
@@ -214,7 +212,17 @@ export const createAdminItemService = async (data: { "name-uk": string; "name-en
   }
 };
 
-export async function getCart(userId: string) {
+// Get the total count of items in the user's cart
+export async function getCartCountService(userId: string) {
+  const count = await prisma.cartItem.aggregate({
+    where: { userId },
+    _sum: { quantity: true },
+  });
+  return count._sum.quantity || 0;
+}
+
+// Get user's cart items
+export async function getUserCartService(userId: string) {
   return prisma.cartItem.findMany({
     where: { userId },
     include: {
@@ -226,75 +234,39 @@ export async function getCart(userId: string) {
   });
 }
 
-export async function addToCart(userId: string, itemId: number) {
-  return prisma.cartItem.upsert({
-    where: { userId_itemId: { userId, itemId } },
-    update: { quantity: { increment: 1 } },
-    create: { userId, itemId, quantity: 1 },
-    include: {
-      item: {
-        select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
-      },
-    },
-  });
-}
 
-export async function updateCartQuantity(userId: string, itemId: number, quantity: number) {
-  if (quantity < 1) {
-    await prisma.cartItem.deleteMany({ where: { userId, itemId } });
-    return null;
-  }
-  return prisma.cartItem.update({
-    where: { userId_itemId: { userId, itemId } },
-    data: { quantity },
-    include: {
-      item: {
-        select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
-      },
-    },
-  });
-}
 
-export async function removeFromCart(userId: string, itemId: number) {
-  return prisma.cartItem.deleteMany({ where: { userId, itemId } });
-}
+// export async function addToCart(userId: string, itemId: number) {
+//   return prisma.cartItem.upsert({
+//     where: { userId_itemId: { userId, itemId } },
+//     update: { quantity: { increment: 1 } },
+//     create: { userId, itemId, quantity: 1 },
+//     include: {
+//       item: {
+//         select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
+//       },
+//     },
+//   });
+// }
 
-// ── LIKES ─────────────────────────────────────────────────────────────────────
+// export async function updateCartQuantity(userId: string, itemId: number, quantity: number) {
+//   if (quantity < 1) {
+//     await prisma.cartItem.deleteMany({ where: { userId, itemId } });
+//     return null;
+//   }
+//   return prisma.cartItem.update({
+//     where: { userId_itemId: { userId, itemId } },
+//     data: { quantity },
+//     include: {
+//       item: {
+//         select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
+//       },
+//     },
+//   });
+// }
 
-export async function getLikes(userId: string) {
-  return prisma.like.findMany({
-    where: { userId },
-    include: {
-      item: {
-        select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true, isActive: true },
-      },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-}
-
-export async function toggleLike(userId: string, itemId: number) {
-  const existing = await prisma.like.findUnique({
-    where: { userId_itemId: { userId, itemId } },
-  });
-
-  if (existing) {
-    await prisma.like.delete({ where: { userId_itemId: { userId, itemId } } });
-    return { liked: false };
-  }
-
-  await prisma.like.create({ data: { userId, itemId } });
-  return { liked: true };
-}
-
-// ── OWN ITEMS ─────────────────────────────────────────────────────────────────
-
-export async function getCartCount(userId: string) {
-  const count = await prisma.cartItem.aggregate({
-    where: { userId },
-    _sum: { quantity: true },
-  });
-  return count._sum.quantity || 0;
-}
+// export async function removeFromCart(userId: string, itemId: number) {
+//   return prisma.cartItem.deleteMany({ where: { userId, itemId } });
+// }
 
 

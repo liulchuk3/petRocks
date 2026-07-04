@@ -7,19 +7,16 @@
 const state = {
     addItem: true,
     allItems: false,
-    allOrders: false,
-    dashboardStatistics: false
+    allOrders: false
   };
 
 const addItemButton = document.getElementById('addItemButton');
 const viewItemsButton = document.getElementById('allItemsButton');
 const viewOrdersButton = document.getElementById('allOrdersButton');
-const viewDashboardButton = document.getElementById('dashboardStatisticsButton');
 
 addItemButton.addEventListener('click', () => switchView('addItem'));
 viewItemsButton.addEventListener('click', () => switchView('allItems'));
 viewOrdersButton.addEventListener('click', () => switchView('allOrders'));
-viewDashboardButton.addEventListener('click', () => switchView('dashboardStatistics'));
 
 function switchView(view) {
   state[view] = true;

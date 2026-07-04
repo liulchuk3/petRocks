@@ -39,7 +39,7 @@
 .profile-tab:hover {
     color: var(--text-color-hover);
 }
-.profile-tab.active {
+.profile-tab-active {
     border-bottom-color: var(--button-bg-color);
     color: var(--button-bg-color);
 }
@@ -64,7 +64,7 @@
 .profile-panel {
     display: none;
 }
-.profile-panel.active {
+.profile-panel-active {
     display: block;
 }
 
