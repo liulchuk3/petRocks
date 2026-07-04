@@ -3,7 +3,7 @@ import type { Request } from "express";
 export type CatalogQueryOptions = {
   minPrice?: number;
   maxPrice?: number;
-  sortByPrice?: "asc" | "desc";
+  sortByPrice?: "asc" | "desc" | "discount";
   sortByDate?: "newest" | "oldest";
 };
 
@@ -20,6 +20,7 @@ export const parseCatalogQuery = (query: Request["query"]): CatalogQueryOptions 
   const maxPriceRaw = getSingleQueryValue(query["max-price"]);
   const sortByPriceRaw = getSingleQueryValue(query["sort-by-price"]);
   const sortByDateRaw = getSingleQueryValue(query["sort-by-date"]);
+  const sortByDiscountRaw = getSingleQueryValue(query["sort-by-discount"]);
 
   const minPrice = minPriceRaw && minPriceRaw.trim() !== "" ? Number(minPriceRaw) : undefined;
   const maxPrice = maxPriceRaw && maxPriceRaw.trim() !== "" ? Number(maxPriceRaw) : undefined;
@@ -27,7 +28,7 @@ export const parseCatalogQuery = (query: Request["query"]): CatalogQueryOptions 
   return {
     minPrice: Number.isFinite(minPrice) ? minPrice : undefined,
     maxPrice: Number.isFinite(maxPrice) ? maxPrice : undefined,
-    sortByPrice: sortByPriceRaw === "asc" || sortByPriceRaw === "desc" ? sortByPriceRaw : undefined,
+    sortByPrice: sortByPriceRaw === "asc" || sortByPriceRaw === "desc" || sortByPriceRaw === "discount" ? sortByPriceRaw : undefined,
     sortByDate: sortByDateRaw === "newest" || sortByDateRaw === "oldest" ? sortByDateRaw : undefined,
   };
 };

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/changeAdmin.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+        <a href="/<%= currentLng %>/admin" class="anchor-back"><%= t("admin.back-to-admin") %></a>
+        <div class="form-div">
+            <form id="changeItemForm" action="/api/items/change/<%= item.id %>" enctype="multipart/form-data">
+                <div class="form-field name-field">
+                    <label for="name-ua"><%= t("admin.field-name-ua") %></label>
+                    <input type="text" id="name-ua" name="name-uk" value="<%= item.name.uk %>" required>
+                    <label for="name-en"><%= t("admin.field-name-en") %></label>
+                    <input type="text" id="name-en" name="name-en" value="<%= item.name.en %>" required>
+                </div>
+                <div class="form-field description-field">
+                    <label for="description-ua"><%= t("admin.field-description-ua") %></label>
+                    <textarea id="description-ua" name="description-uk" required><%= item.description.uk %></textarea>
+                    <label for="description-en"><%= t("admin.field-description-en") %></label>
+                    <textarea id="description-en" name="description-en" required><%= item.description.en %></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="price"><%= t("admin.field-price") %></label>
+                    <input type="number" id="price" name="price" step="0.01" value="<%= item.price %>" required>
+                    <label for="discount"><%= t("admin.field-discount") %></label>
+                    <input type="number" id="discount" name="discount" step="0.01" value="<%= item.discountPrice ?? '' %>">
+                </div>
+                <div class="form-field">
+                    <label for="image"><%= t("admin.field-image") %></label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                <div class="checkbox-wrapper">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="isActive" name="isActive" <%= item.isActive ? 'checked' : '' %>>
+                        <span class="slider"></span>
+                        <span class="label-text"><%= t("admin.field-active") %></span>
+                    </label>
+                </div>
+                <p id="formSuccess" class="form-success" style="display: none;"><%= t("admin.item-changed-success") %></p>
+                <p id="formFileTypeError" class="form-error" style="display: none;"> <%= t("admin.item-changed-error-type") %></p>
+                <p id="formFileSizeError" class="form-error" style="display: none;"><%= t("admin.item-changed-error-size") %></p>
+                <button type="submit"><%= t("admin.change-btn") %></button>
+            </form>
+        </div>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+<script src="/js/changeAdmin.js" type="module"></script>
+</body>
+</html>

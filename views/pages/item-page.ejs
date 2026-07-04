@@ -61,7 +61,11 @@
                             <h2>
                                 <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="rock-card-title-link"><%= item.name[currentLng] || item.name.en %></a>
                             </h2>
-                            <p class="price">$<%= item.price %></p>
+                            <% if (item.discountPrice && item.discountPrice < item.price) { %>
+                            <p class="price"></span> $<%= item.discountPrice %> <span class="original-price">$<%= item.price %></p>
+                            <% } else { %>
+                                <p class="price">$<%= item.price %></p>
+                            <% } %>
                             <button class="add-to-cart-btn2" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
                         </div>
                     <% }) %>

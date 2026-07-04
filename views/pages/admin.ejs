@@ -18,7 +18,6 @@
             <button id="addItemButton" class="admin-button-active"><%= t("admin.add-item") %></button>
             <button id="allItemsButton"><%= t("admin.view-items") %></button>
             <button id="allOrdersButton"><%= t("admin.view-orders") %></button>
-            <button id="dashboardStatisticsButton"><%= t("admin.view-dashboard") %></button>
         </div>
 
         <div class="admin-addItem-container container-active" id="admin-addItem-container">
@@ -52,13 +51,27 @@
         </div>
 
         <div class="admin-allItems-container" id="admin-allItems-container">
-
+            <div class="catalog-card-container">
+            <% items.forEach(item => { %>
+                <div class="<% if (item.isActive) { %>catalog-rock-card<% } else { %>catalog-rock-card inactive<% } %>">
+                    <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="catalog-rock-card-image-link">
+                        <img src="<%= item.imageUrl %>" alt="<%= item.name[currentLng] || item.name.en %>">
+                    </a>
+                    <h2>
+                        <a href="/<%= currentLng %>/rock/<%= item.slug %>" class="catalog-rock-card-title-link"><%= item.name[currentLng] || item.name.en %></a>
+                    </h2>
+                    <% if (item.discountPrice && item.discountPrice < item.price) { %>
+                            <p class="price"></span> $<%= item.discountPrice %> <span class="original-price">$<%= item.price %></p>
+                        <% } else { %>
+                            <p class="price">$<%= item.price %></p>
+                        <% } %>
+                    <a href="/<%= currentLng %>/admin/change/<%= item.id %>" class="change-btn" id="change-item"><%= t("admin.change-btn") %></a>
+                </div>
+            <% }) %>
+        </div>
         </div>
 
         <div class="admin-allOrders-container" id="admin-allOrders-container">
-        </div>
-
-        <div class="admin-dashboardStatistics-container" id="admin-dashboardStatistics-container">
         </div>
 
         <!-- <div id="admin-i18n" hidden

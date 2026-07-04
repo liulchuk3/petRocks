@@ -24,6 +24,7 @@
     --sing-in-link-bg-color-hover: rgba(0, 0, 0, 0.2);
     --success-color: rgb(0, 128, 0);
     --error-color: rgb(255, 0, 0);
+    --original-price-color: rgb(175, 99, 99);
 }
 :root .site-logo {
   content: url("/images/petRocksLogoLight.png");
@@ -52,6 +53,7 @@
     --sing-in-link-bg-color-hover: rgba(255, 255, 255, 0.2);
     --success-color: rgb(0, 255, 0);
     --error-color: rgb(255, 0, 0);
+    --original-price-color: rgb(175, 99, 99);
 }
 :root.dark .site-logo {
   content: url("/images/petRocksLogoDarkV2.png");
@@ -64,6 +66,9 @@
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+html, body {
+    overflow-x: hidden;
 }
 body{
     /* background-color: var(--body-bg-color); */
@@ -315,6 +320,22 @@ main{
     padding: 0px;
     padding-top: 75px;
     min-height: 100vh;
+}
+.rock-card .price {
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--price-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px 0 8px 0px;
+}
+.original-price {
+    text-decoration: line-through;
+    color: var(--original-price-color);
+    font-size: 15px;
+    opacity: 0.5;
 }
 /* MAIN STYLES ==================================== */
 /* FOOTER STYLES ==================================== */

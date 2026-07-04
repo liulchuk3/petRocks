@@ -68,6 +68,7 @@
         "sign-in-link": "Sign In"
     },
     "admin": {
+        "back-to-admin": "Back to Admin Panel",
         "heading": "Admin Panel",
         "add-item": "Add",
         "view-items": "Items",
@@ -78,16 +79,23 @@
         "field-description-ua": "Description (Ukrainian)",
         "field-description-en": "Description (English)",
         "field-price": "Price",
+        "field-discount": "Discount",
         "field-image": "Image",
         "submit": "Add Item",
+        "change-btn": "Change",
         "item-added-success": "Item added successfully!",
         "item-added-error-type": "Error adding item. Only JPEG, PNG, WebP allowed.",
-        "item-added-error-size": "Error adding item. File too large (max 5MB)."
+        "item-added-error-size": "Error adding item. File too large (max 5MB).",
+        "item-changed-success": "Item changed successfully!",
+        "item-changed-error-type": "Error changing item. Only JPEG, PNG, WebP allowed.",
+        "item-changed-error-size": "Error changing item. File too large (max 5MB).",
+        "field-active": "Active"
     },
     "catalog": {
         "filter-sort": "Filter / Sort",
         "sort": "Sort",
         "filter": "Filter",
+        "sort-discount": "Sort by Discount",
         "sort-by-price": "Sort by Price",
         "sort-by-date": "Sort by Date",
         "price-range": "Price Range",

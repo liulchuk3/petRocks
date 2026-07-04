@@ -63,7 +63,11 @@ export const getAllItemsForCatalogService = async (options: CatalogQueryOptions 
   }
 
   if (options.sortByPrice) {
-    orderBy.push({ price: options.sortByPrice });
+    if (options.sortByPrice === 'discount') {
+      orderBy.push({ discountPrice: 'desc' });
+    } else {
+      orderBy.push({ price: options.sortByPrice });
+    }
   }
 
   if (options.sortByDate) {
@@ -89,6 +93,13 @@ export const getAllItemsForCatalogService = async (options: CatalogQueryOptions 
     }
   });
 
+  if (options.sortByPrice === 'discount') {
+    const discountedItems = items.filter(item => item.discountPrice !== null);
+    const regularItems = items.filter(item => item.discountPrice === null);
+
+    return [...discountedItems, ...regularItems];
+  }
+
   return items;
 }
 
@@ -109,9 +120,26 @@ export const getItemBySlugService = async (slug: string) => {
   });
 }
 
+// Get item by ID for the change page
+export const getItemByIdService = async (itemId: string) => {
+  return prisma.items.findUnique({
+    where: { id: parseInt(itemId) },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      discountPrice: true,
+      description: true,
+      imageUrl: true,
+      slug: true,
+      isActive: true,
+      owner: { select: { role: true } }
+    }
+  });
+};
+
 // Create a new item (Admin only has access to this)
 export const createAdminItemService = async (data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
-  console.log('Received data:', data);
   try {
     const imageUrl = await compressAndSave(imageFile);
 
@@ -148,9 +176,43 @@ export const createAdminItemService = async (data: { "name-uk": string; "name-en
   }
 };
 
+// Update an existing item (Admin only has access to this)
+  export const updateAdminItemService = async (itemId: string, data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number; discount?: number | null; isActive?: boolean }, imageFile?: Express.Multer.File) => {
+  try {
+    let imageUrl;
+    if (imageFile) {
+      imageUrl = await compressAndSave(imageFile);
+    }
+    
 
+    const updatedData: any = {
+      name: {
+        en: data["name-en"],
+        uk: data["name-uk"]
+      },
+      description: {
+        en: data["description-en"],
+        uk: data["description-uk"]
+      },
+      price: data.price,
+      discountPrice: data.discount ?? null,
+      isActive: data.isActive ?? true, // Default to true if not provided
+    };
 
+    if (imageUrl) {
+      updatedData.imageUrl = imageUrl;
+    }
 
+    const item = await prisma.items.update({
+      where: { id: parseInt(itemId) },
+      data: updatedData,
+    });
+
+    return { success: true, item };
+  } catch (error) {
+    throw new Error('Failed to update item');
+  }
+};
 
 export async function getCart(userId: string) {
   return prisma.cartItem.findMany({

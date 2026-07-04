@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import { getCartHandler, addToCartHandler, updateCartHandler, removeFromCartHandler,
          getLikesHandler, toggleLikeHandler,
-         createAdminItemController,
+         createAdminItemController, updateAdminItemController
 } from '../controllers/items.controllers.js';
 import { requireAdmin } from '../middleware/auth.middleware.js';
 import { upload } from '../utils/upload.js'; // Import the upload middleware for handling file uploads
@@ -21,6 +21,7 @@ router.post('/profile/likes/:itemId', requireAuth, toggleLikeHandler);
 
 // Admin routes
 router.post('/items', requireAuth, requireAdmin, upload.single('image'), createAdminItemController); // Create a new item (Admin only)
+router.put('/items/change/:itemId', requireAuth, requireAdmin, upload.single('image'), updateAdminItemController); // Update an existing item (Admin only)
 
 
 export default router;

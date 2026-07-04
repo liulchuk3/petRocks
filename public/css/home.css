@@ -206,11 +206,22 @@ main h1 span{
     font-size: 22px;
     margin: 5px 0 0px 0px;
 }
-.rock-card .price {
+/* .rock-card .price {
+    height: 30px;
     font-size: 18px;
     font-weight: bold;
     color: var(--price-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px 0 8px 0px;
 }
+.original-price {
+    text-decoration: line-through;
+    color: var(--original-price-color);
+    font-size: 15px;
+    opacity: 0.5;
+} */
 .add-to-cart-btn {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);

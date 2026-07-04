@@ -6,7 +6,9 @@ import {
   getAllItemsForHomePageService,
   getAllItemsForCatalogService,
   createAdminItemService,
-  getItemBySlugService
+  getItemBySlugService,
+  getItemByIdService,
+  updateAdminItemService
 } from '../services/items.service.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
@@ -33,6 +35,12 @@ export const getItemBySlugController = async (req: AuthRequest) => {
   return item;
 };
 
+// ── GET ITEM BY ID FOR THE ITEM PAGE
+export const getItemByIdController = async (itemId: string) => {
+  const item = await getItemByIdService(itemId);
+  return item;
+};
+
 // ── ADMIN: CREATE ITEM
 export const createAdminItemController = async (req: AuthRequest, res: Response) => {
   const { "name-uk": nameUk, "name-en": nameEn, "description-uk": descriptionUk, "description-en": descriptionEn, price } = req.body;
@@ -45,6 +53,35 @@ export const createAdminItemController = async (req: AuthRequest, res: Response)
   res.json(response);
 }
 
+// ── ADMIN: UPDATE ITEM
+export const updateAdminItemController = async (req: AuthRequest, res: Response) => {
+  const itemId = req.params.itemId as string;
+  const { "name-uk": nameUk, "name-en": nameEn, "description-uk": descriptionUk, "description-en": descriptionEn, price, discount, isActive } = req.body;
+  const imageFile = req.file; // This will be undefined if no new image is uploaded
+  if (!nameUk || !nameEn || !descriptionUk || !descriptionEn || !price) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  const normalizedPrice = Number(price);
+  const normalizedDiscount = discount === '' || discount === undefined || discount === null
+    ? null
+    : Number(discount);
+
+  if (Number.isNaN(normalizedPrice) || (normalizedDiscount !== null && Number.isNaN(normalizedDiscount))) {
+    return res.status(400).json({ error: 'Invalid numeric fields' });
+  }
+
+  const response = await updateAdminItemService(itemId, {
+    "name-uk": nameUk,
+    "name-en": nameEn,
+    "description-uk": descriptionUk,
+    "description-en": descriptionEn,
+    price: normalizedPrice,
+    discount: normalizedDiscount,
+    isActive: Boolean(isActive),
+  }, imageFile);
+  res.json(response);
+}
 
 
 // ── CART ──────────────────────────────────────────────────────────────────────

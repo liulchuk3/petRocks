@@ -2,7 +2,11 @@ import { Router } from "express";
 import { AuthRequest, optionalAuth, requireAdmin, requireAuth } from "../middleware/auth.middleware.js";
 import { getShortUserData, getFullUserData } from "../services/getUserData.service.js"; // Уявна функція, яка дістає дані користувача за userId
 import { getCartCount } from "../services/items.service.js"; // Уявна функція, яка дістає кількість товарів у кошику користувача
-import { getAllItemsForHomePageController, getAllItemsForCatalogController, getItemBySlugController } from "../controllers/items.controllers.js";
+import { getAllItemsForHomePageController, 
+         getAllItemsForCatalogController, 
+         getItemBySlugController,
+         getItemByIdController 
+        } from "../controllers/items.controllers.js";
 import { parseCatalogQuery } from "../utils/catalog-query.js";
 
 const router = Router();
@@ -78,9 +82,23 @@ const router = Router();
 
     router.get("/admin", requireAuth, requireAdmin, async (req: AuthRequest, res) => {
         const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const selectedFilters = parseCatalogQuery(req.query);
+        const itemsData = await getAllItemsForCatalogController(selectedFilters); // Уявна функція, яка дістає всі товари з бази даних
         res.render("pages/admin", {
             currentLng: req.language,
-            userData: userData // дані користувача або null, якщо гість
+            userData: userData, // дані користувача або null, якщо гість
+            items: itemsData // масив товарів з бази даних
+        });
+    });
+
+    router.get("/admin/change/:id", requireAuth, requireAdmin, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const itemId = req.params.id as string;
+        const item = await getItemByIdController(itemId); // Уявна функція, яка дістає товар за id
+        res.render("pages/changeAdmin", {
+            currentLng: req.language,
+            userData: userData, // дані користувача або null, якщо гість
+            item: item // дані товару для редагування
         });
     });
 
