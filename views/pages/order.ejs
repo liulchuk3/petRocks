@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/headLinks') %>
+    <link rel="stylesheet" href="/css/order.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <%- include('../partials/sidebar') %>
+
+    <main>
+        <div class="form-wrap">
+            <div class="order-summary">
+                
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Контактні дані</div>
+                <div class="row">
+                <div class="field">
+                    <label>Ім'я</label>
+                    <input type="text" placeholder="Артем">
+                </div>
+                <div class="field">
+                    <label>Прізвище</label>
+                    <input type="text" placeholder="Коваленко">
+                </div>
+                </div>
+                <div class="row">
+                <div class="field">
+                    <label>Телефон</label>
+                    <input type="tel" placeholder="+380 XX XXX XX XX">
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" placeholder="artem@email.com">
+                    <div class="hint">Підтвердження замовлення</div>
+                </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">
+                <span class="np-logo"><span class="np-dot"></span>Доставка Новою Поштою</span>
+                </div>
+
+                <div class="field">
+                <label for="city-input">Місто</label>
+                <div class="autocomplete-wrap">
+                    <input type="text" id="city-input" placeholder="Почніть вводити назву міста...">
+                    <ul class="dropdown" id="city-list">
+
+                    </ul>
+                </div>
+                </div>
+
+                <div class="field">
+                <label for="warehouse-select">Відділення / Поштомат</label>
+                <div class="autocomplete-wrap">
+                    <select id="warehouse-select" name="warehouse" class="warehouse-select">
+                    </select>
+                </div>
+                <div class="hint" id="warehouse-hint">Спочатку оберіть місто</div>
+                </div>
+            </div>
+
+            <button class="submit-btn">Оформити замовлення</button>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+<script src="/js/index.js" type="module"></script>
+<script src="/js/order.js" type="module"></script>
+</body>
+</html>

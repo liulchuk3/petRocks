@@ -181,3 +181,72 @@ languageSelect.addEventListener('change', () => {
         window.location.href = `/${selectedLanguage}${cleanPath}`;
     }
 });
+
+// ── CART ───────────────────────────────────────────────────────────────
+const cartBtn = document.getElementById('header-cart');
+cartBtn?.addEventListener('click', () => {
+    window.location.href = `/:lng/profile`;
+});
+
+// Add to cart button handler
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const itemId = e.currentTarget.dataset.rockId;
+        const res = await fetch(`/api/addToCart/${itemId}`, {
+            method: 'POST',
+            credentials: 'include',
+        });
+        if (res.ok) {
+          btn.classList.add('in-cart');
+          const currentCount = parseInt(document.getElementById('cart-count').textContent);
+          document.getElementById('cart-count').textContent = currentCount + 1;
+          const currentLng = getCookie('i18next') || 'uk';
+          btn.textContent = (currentLng === 'uk') ? 'У кошику' : 'In Cart';
+        }
+})});
+
+function increaseQuantity(id) {
+  updateCartQuantity(id, 1);
+}
+
+function decreaseQuantity(id) {
+  updateCartQuantity(id, -1);
+}
+
+async function updateCartQuantity(id, delta) {
+  const input = document.getElementById(`qty-${id}`);
+  if (!input) {
+    return;
+  }
+
+  const nextQuantity = Math.max(1, parseInt(input.value, 10) + delta);
+  const res = await apiFetch(`/api/profile/cart/${id}`, {
+    method: 'PATCH',
+    body: { quantity: nextQuantity },
+  });
+
+  if (!res.ok) {
+    return;
+  }
+
+  input.value = String(nextQuantity);
+}
+
+async function removeFromCart(id) {
+    if (confirm("Ви впевнені, що хочете видалити цей товар?")) {
+    const res = await apiFetch(`/api/profile/cart/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!res.ok) {
+      return;
+    }
+
+    document.querySelector(`.cart-item[data-id="${id}"]`)?.remove();
+    }
+}
+
+window.increaseQuantity = increaseQuantity;
+window.decreaseQuantity = decreaseQuantity;
+window.removeFromCart = removeFromCart;

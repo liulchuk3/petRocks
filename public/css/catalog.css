@@ -122,6 +122,7 @@ main {
 }
 .sort-filter-box-active{
     display: flex;
+    z-index: 999;
 }
 .close-sort-filter{
     color: var(--text-color);

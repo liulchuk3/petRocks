@@ -1,6 +1,6 @@
 <div class="header-cart-container">
-  <div class="header-cart" id="header-cart">
+  <div class="header-cart <%= userCart.totalCount > 0 ? 'header-cart-active' : '' %>" id="header-cart">
     <p class="cart-icon"></p>
-    <span class="cart-count <%= userCartCount > 0 ? 'header-cart-active' : '' %>" id="cart-count"><%= userCartCount %></span>
+    <span class="cart-count" id="cart-count"><%= userCart.totalCount || 0 %></span>
   </div>
 </div>

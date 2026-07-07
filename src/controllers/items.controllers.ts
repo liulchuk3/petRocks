@@ -1,13 +1,16 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 import {
-  getCartCountService,
   getAllItemsForHomePageService,
   getAllItemsForCatalogService,
   createAdminItemService,
   getItemBySlugService,
   getItemByIdService,
-  updateAdminItemService
+  updateAdminItemService,
+  addToCartService,
+  updateCartQuantityService,
+  removeFromCartService,
+  getUserCartService
 } from '../services/items.service.js';
 import { prisma } from '../lib/prisma.js';
 import { compressAndSave } from '../utils/upload.js';
@@ -82,43 +85,39 @@ export const updateAdminItemController = async (req: AuthRequest, res: Response)
   res.json(response);
 }
 
-// ── GET CART COUNT ──────────────────────────────────────────────────────────────────────
-export const getCartCountController = async (userId: string) => {
-  const count = await getCartCountService(userId);
-  return count;
+// ── GET USER CART ──────────────────────────────────────────────────────────────────────
+export const getUserCartController = async (req: AuthRequest) => {
+  const { items, totalCount } = await getUserCartService(req.userId!);
+  return { items, totalCount };
 };
 
+// ── ADD ITEM TO CART ──────────────────────────────────────────────────────────────────────
+export const addToCartController = async (req: AuthRequest, res: Response) => {
+  const itemId = Number(req.params.itemId);
+  if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
+  const cartItem = await addToCartService(req.userId!, itemId);
+  console.log('Cart Item Added:', cartItem); // Log the added cart item for debugging
+  res.json(cartItem);
+};
 
-// ── CART ──────────────────────────────────────────────────────────────────────
-// export const getCartController = async (req: AuthRequest, res: Response) => {
-//   const cart = await getCartService(req.userId!);
-//   res.json(cart);
-// };
+// ── UPDATE CART ITEM QUANTITY ──────────────────────────────────────────────────────────────────────
+export const updateCartQuantityController = async (req: AuthRequest, res: Response) => {
+  const itemId = Number(req.params.itemId);
+  const quantity = Number(req.body.quantity);
 
-// export const addToCartController = async (req: AuthRequest, res: Response) => {
-//   const itemId = Number(req.params.itemId);
-//   if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
+  if (isNaN(itemId) || isNaN(quantity)) {
+    return res.status(400).json({ error: 'Invalid cart data' });
+  }
 
-//   const cartItem = await addToCart(req.userId!, itemId);
-//   res.json(cartItem);
-// };
+  const cartItem = await updateCartQuantityService(req.userId!, itemId, quantity);
+  res.json(cartItem);
+};
 
-// export const removeFromCartController = async (req: AuthRequest, res: Response) => {
-//   const itemId = Number(req.params.itemId);
-//   if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
+// ── REMOVE ITEM FROM CART ──────────────────────────────────────────────────────────────────────
+export const removeFromCartController = async (req: AuthRequest, res: Response) => {
+  const itemId = Number(req.params.itemId);
+  if (isNaN(itemId)) return res.status(400).json({ error: 'Invalid itemId' });
 
-//   await removeFromCart(req.userId!, itemId);
-//   res.json({ success: true });
-// };
-
-
-
-
-//   export const updateCartController = async (req: AuthRequest, res: Response) => {
-//   const itemId = Number(req.params.itemId);
-//   const quantity = Number(req.body.quantity);
-//   if (isNaN(itemId) || isNaN(quantity)) return res.status(400).json({ error: 'Invalid data' });
-
-//   const result = await updateCartQuantity(req.userId!, itemId, quantity);
-//   res.json(result ?? { removed: true });
-// };
+  const cartItem = await removeFromCartService(req.userId!, itemId);
+  res.json(cartItem);
+};

@@ -21,7 +21,8 @@
                 <p class="item-hero__price">$<%= item.price %></p>
                 <p class="description-text1200"><%= item.description[currentLng] || item.description.en %></p>
                 <div class="item-actions">
-                    <button class="add-to-cart-btn"><%= t('global.add-to-cart-v2') %></button>
+                    <% const currentItemInCart = Array.isArray(userCart) && userCart.some(cartItem => cartItem?.item?.id === item.id || cartItem?.itemId === item.id); %>
+                    <button type="button" class="add-to-cart-btn <%= currentItemInCart ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= currentItemInCart ? (currentLng === 'uk' ? 'У кошику' : 'In cart') : (currentLng === 'uk' ? 'Додати в кошик' : 'Add to cart') %></button>
                 </div>
 
                 <div class="description-wrapper" id="desc-wrapper">
@@ -66,7 +67,8 @@
                             <% } else { %>
                                 <p class="price">$<%= item.price %></p>
                             <% } %>
-                            <button class="add-to-cart-btn2" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
+                            <% const relatedItemInCart = Array.isArray(userCart) && userCart.some(cartItem => cartItem?.item?.id === item.id || cartItem?.itemId === item.id); %>
+                            <button type="button" class="add-to-cart-btn2 <%= relatedItemInCart ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= relatedItemInCart ? (currentLng === 'uk' ? 'У кошику' : 'In cart') : (currentLng === 'uk' ? 'Додати в кошик' : 'Add to cart') %></button>
                         </div>
                     <% }) %>
                 </div>

@@ -129,10 +129,11 @@ body.dark .moon-icon {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 998;
 }
 .header-cart-active {
     opacity: 0.9;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .cart-icon {
     width: 34px;

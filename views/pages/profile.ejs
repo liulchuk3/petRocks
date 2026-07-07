@@ -30,20 +30,50 @@
 
             <%# ── Панель: Профіль ────────────────────────────────── %>
             <div class="profile-panel profile-panel-active" id="panel-info">
-                <div class="profile-info">
-                    <img class="profile-picture"
-                        src="<%= userData.imageUrl ? userData.imageUrl : '/images/default-avatar.svg' %>"
-                        alt="Profile Picture">
-                    <div class="profile-details">
-                        <p><strong><%= t("profile.userId") %>:</strong> <%= userData.id %></p>
+                <div class="profile-info-card">
+                    <div class="profile-info-hero">
+                        <img class="profile-picture"
+                            src="<%= userData.imageUrl ? userData.imageUrl : '/images/default-avatar.svg' %>"
+                            alt="Profile Picture">
+                        <div class="profile-hero-copy">
+                            <span class="profile-chip"><%= currentLng === 'uk' ? 'Особистий кабінет' : 'Personal space' %></span>
+                            <% if (userData.username) { %>
+                                <h2 class="profile-name"><%= userData.username %></h2>
+                            <% } else { %>
+                                <h2 class="profile-name"><%= currentLng === 'uk' ? 'Ваш профіль' : 'Your profile' %></h2>
+                            <% } %>
+                            <p class="profile-subtitle"><%= currentLng === 'uk' ? 'Керуйте особистими даними, кошиком та замовленнями в одному місці.' : 'Manage your details, cart, and orders in one place.' %></p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="profile-stat-card">
+                            <span class="profile-stat-label"><%= currentLng === 'uk' ? 'Мова сайту' : 'Site language' %></span>
+                            <strong class="profile-stat-value"><%= currentLng === 'uk' ? 'Українська' : 'English' %></strong>
+                        </div>
+                        <div class="profile-stat-card">
+                            <span class="profile-stat-label"><%= currentLng === 'uk' ? 'Товарів у кошику' : 'Items in cart' %></span>
+                            <strong class="profile-stat-value"><%= userCart?.totalCount ?? 0 %></strong>
+                        </div>
+                        <div class="profile-stat-card">
+                            <span class="profile-stat-label"><%= currentLng === 'uk' ? 'Статус акаунту' : 'Account status' %></span>
+                            <strong class="profile-stat-value"><%= currentLng === 'uk' ? 'Активний' : 'Active' %></strong>
+                        </div>
+                    </div>
+
+                    <div class="profile-details-grid">
+                        <p><strong><%= t("profile.userId") %>:</strong> <span><%= userData.id %></span></p>
                         <% if (userData.username) { %>
-                            <p><strong><%= t("profile.username") %>:</strong> <%= userData.username %></p>
+                            <p><strong><%= t("profile.username") %>:</strong> <span><%= userData.username %></span></p>
                         <% } else { %>
-                            <p><strong><%= t("profile.username") %>:</strong>
-                                <a href="#"><%= t("profile.no-username-link") %></a>
-                            </p>
+                            <p><strong><%= t("profile.username") %>:</strong> <span><%= t("profile.no-username-link") %></span></p>
                         <% } %>
-                        <p><strong><%= t("profile.email") %>:</strong> <%= userData.email %></p>
+                        <p><strong><%= t("profile.email") %>:</strong> <span><%= userData.email %></span></p>
+                    </div>
+
+                    <div class="profile-actions-row">
+                        <a href="/<%= currentLng %>/catalog" class="profile-secondary-link"><%= currentLng === 'uk' ? 'Перейти до каталогу' : 'Go to catalog' %></a>
+                        <a href="/<%= currentLng %>/order" class="profile-secondary-link"><%= currentLng === 'uk' ? 'Оформити замовлення' : 'Checkout now' %></a>
                     </div>
                     <button id="logout-btn-profile" class="logout-btn logout-btn-profile"><%= t('global.logout') %></button>
                 </div>
@@ -51,12 +81,61 @@
 
             <%# ── Панель: Кошик ──────────────────────────────────── %>
             <div class="profile-panel" id="panel-cart">
-                <div class="profile-panel-inner" id="cart-content">
-                    <p class="panel-loading">Here's your cart content.</p>
+                <div class="cart-container">
+                    <h2>Ваш кошик</h2>
+                    <% if (userCart?.items?.length > 0) { %>
+                        <div class="cart-list">
+                            <% userCart.items.forEach(cartItem => { %>
+                                <div class="cart-item <%= !cartItem.item.isActive ? 'item-inactive' : '' %>" data-id="<%= cartItem.item.id %>">
+                                    
+                                    <a href="/<%= currentLng %>/rock/<%= cartItem.item.slug %>" class="cart-item-image-link">
+                                        <img src="<%= cartItem.item.imageUrl %>" alt="<%= cartItem.item.name[currentLng] || cartItem.item.name.en %>" class="cart-item-image">
+                                    </a>
+
+                                    <div class="cart-item-info">
+                                        <a href="/<%= currentLng %>/rock/<%= cartItem.item.slug %>" class="cart-item-name">
+                                            <%= cartItem.item.name[currentLng] || cartItem.item.name.en %>
+                                        </a>
+                                        
+                                        <div class="cart-item-prices">
+                                            <% if (cartItem.item.discountPrice && cartItem.item.discountPrice < cartItem.item.price) { %>
+                                                <span class="price-discount"><%= cartItem.item.discountPrice %> $</span>
+                                                <span class="price-original"><%= cartItem.item.price %> $</span>
+                                            <% } else { %>
+                                                <span class="price-regular"><%= cartItem.item.price %> $</span>
+                                            <% } %>
+                                        </div>
+                                        
+                                        <% if (!cartItem.item.isActive) { %>
+                                            <span class="item-status-error">Немає в наявності</span>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="cart-item-actions">
+                                        <div class="quantity-control">
+                                            <button type="button" class="btn-qty btn-minus" onclick="decreaseQuantity('<%= cartItem.item.id %>')">−</button>
+                                            <input type="number" class="input-qty" id="qty-<%= cartItem.item.id %>" value="<%= cartItem.quantity %>" min="1" readonly>
+                                            <button type="button" class="btn-qty btn-plus" onclick="increaseQuantity('<%= cartItem.item.id %>')">+</button>
+                                        </div>
+
+                                        <button type="button" class="btn-delete" onclick="removeFromCart('<%= cartItem.item.id %>')" title="Видалити з кошика">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <div class="cart-empty">
+                            <p>Ваш кошик порожній.</p>
+                        </div>
+                    <% } %>
                 </div>
-                <div class="cart-total" id="cart-total" style="display:none;">
-                    <strong><%= t("profile.total") %>: </strong><span id="cart-total-value">$0.00</span>
-                </div>
+                <a href="/<%= currentLng %>/order" class="checkout-btn" id="checkout-btn"><%= t("profile.checkout") %></a>
             </div>
 
             <%# ── Панель: Замовлення ─────────────────────────────── %>

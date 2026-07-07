@@ -337,6 +337,17 @@ main{
     font-size: 15px;
     opacity: 0.5;
 }
+
+.in-cart{
+    opacity: 0.4;
+}
+.in-cart:hover{
+    opacity: 0.4;
+    background-color: var(--button-bg-color) !important;
+    color: var(--button-text-color) !important;
+    border: 1px solid var(--button-border-color) !important;
+    cursor: default !important;
+}
 /* MAIN STYLES ==================================== */
 /* FOOTER STYLES ==================================== */
 footer{

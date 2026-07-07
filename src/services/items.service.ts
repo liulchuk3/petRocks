@@ -212,18 +212,9 @@ export const createAdminItemService = async (data: { "name-uk": string; "name-en
   }
 };
 
-// Get the total count of items in the user's cart
-export async function getCartCountService(userId: string) {
-  const count = await prisma.cartItem.aggregate({
-    where: { userId },
-    _sum: { quantity: true },
-  });
-  return count._sum.quantity || 0;
-}
-
-// Get user's cart items
+// Get the user's cart items and total count
 export async function getUserCartService(userId: string) {
-  return prisma.cartItem.findMany({
+  const items = await prisma.cartItem.findMany({
     where: { userId },
     include: {
       item: {
@@ -232,41 +223,47 @@ export async function getUserCartService(userId: string) {
     },
     orderBy: { createdAt: 'desc' },
   });
+
+  // Рахуємо загальну кількість з вже отриманих даних — без зайвого запиту в БД
+  const totalCount = items.length;
+
+  return { items, totalCount };
 }
 
 
+// Add an item to the user's cart
+export async function addToCartService(userId: string, itemId: number) {
+  const cartItem = await prisma.cartItem.upsert({
+    where: { userId_itemId: { userId, itemId } },
+    update: { quantity: { increment: 1 } },
+    create: { userId, itemId, quantity: 1 },
+    include: {
+      item: {
+        select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
+      },
+    },
+  });
+  return cartItem;
+}
 
-// export async function addToCart(userId: string, itemId: number) {
-//   return prisma.cartItem.upsert({
-//     where: { userId_itemId: { userId, itemId } },
-//     update: { quantity: { increment: 1 } },
-//     create: { userId, itemId, quantity: 1 },
-//     include: {
-//       item: {
-//         select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
-//       },
-//     },
-//   });
-// }
+// Update cart item quantity
+export async function updateCartQuantityService(userId: string, itemId: number, quantity: number) {
+  if (quantity < 1) {
+    return prisma.cartItem.deleteMany({ where: { userId, itemId } });
+  }
 
-// export async function updateCartQuantity(userId: string, itemId: number, quantity: number) {
-//   if (quantity < 1) {
-//     await prisma.cartItem.deleteMany({ where: { userId, itemId } });
-//     return null;
-//   }
-//   return prisma.cartItem.update({
-//     where: { userId_itemId: { userId, itemId } },
-//     data: { quantity },
-//     include: {
-//       item: {
-//         select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true },
-//       },
-//     },
-//   });
-// }
+  return prisma.cartItem.update({
+    where: { userId_itemId: { userId, itemId } },
+    data: { quantity },
+    include: {
+      item: {
+        select: { id: true, name: true, price: true, discountPrice: true, imageUrl: true, slug: true, isActive: true },
+      },
+    },
+  });
+}
 
-// export async function removeFromCart(userId: string, itemId: number) {
-//   return prisma.cartItem.deleteMany({ where: { userId, itemId } });
-// }
-
-
+// Remove an item from the user's cart
+export async function removeFromCartService(userId: string, itemId: number) {
+  return prisma.cartItem.deleteMany({ where: { userId, itemId } });
+}

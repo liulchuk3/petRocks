@@ -68,7 +68,11 @@
                         <% } else { %>
                             <p class="price">$<%= item.price %></p>
                         <% } %>
-                    <button class="<% if(item.isActive){ %>add-to-cart-btn<% } else { %>add-to-cart-btn inactive<% } %>" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
+                    <% if (currentLng === 'uk') { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'У кошику' : t('global.add-to-cart') %></button>
+                    <% } else { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'In Cart' : t('global.add-to-cart') %></button>
+                    <% } %>
                 </div>
             <% }) %>
         </div>

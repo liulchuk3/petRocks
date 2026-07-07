@@ -35,7 +35,11 @@
                         <% } else { %>
                             <p class="price">$<%= item.price %></p>
                         <% } %>
-                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
+                        <% if (currentLng === 'uk') { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'У кошику' : t('global.add-to-cart') %></button>
+                    <% } else { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'In Cart' : t('global.add-to-cart') %></button>
+                    <% } %>
                     </div>
                 <% }) %>
             </div>
@@ -47,7 +51,7 @@
             <p><%= t('index.p-description2') %></p>
         </div>
 
-        <a href="" class="collection-a"><h2 class="collection-h"><%= t('index.new-arrivals-heading') %></h2></a>
+        <a href="/<%= currentLng %>/catalog" class="collection-a"><h2 class="collection-h"><%= t('index.new-arrivals-heading') %></h2></a>
         <div class="rocks-wrapper">
             <button class="scroll-btn scroll-btn-bottom-left" aria-label="Scroll left">&#8249;</button>
 
@@ -66,7 +70,11 @@
                         <% } else { %>
                             <p class="price">$<%= item.price %></p>
                         <% } %>
-                        <button class="add-to-cart-btn" data-rock-id="<%= item.id %>"><%= t('global.add-to-cart') %></button>
+                        <% if (currentLng === 'uk') { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'У кошику' : t('global.add-to-cart') %></button>
+                    <% } else { %>
+                        <button class="add-to-cart-btn <%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'in-cart' : '' %>" data-rock-id="<%= item.id %>"><%= userCart.items.some(cartItem => cartItem.id === item.id) ? 'In Cart' : t('global.add-to-cart') %></button>
+                    <% } %>
                     </div>
                 <% }) %>
             </div>
