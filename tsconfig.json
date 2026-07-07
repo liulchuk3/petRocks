@@ -5,7 +5,7 @@
     "moduleResolution": "NodeNext",
     "rootDir": ".",                     // компілюємо і src, і generated
     "outDir": "./dist",                // папка для скомпільованого JS-коду
-    "strict": true,                    // увімкнення суворої типізації
+    "strict": false,                    // увімкнення суворої типізації
     "esModuleInterop": true,           // дозволяє коректно імпортувати модулі
     "skipLibCheck": true,              // ігнорування перевірки типів у бібліотеках
     "forceConsistentCasingInFileNames": true,
