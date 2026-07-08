@@ -120,5 +120,13 @@ const router = Router();
     router.get("/authorization-sign-up", (req: AuthRequest, res) => {
         res.render("pages/authorization-sign-up", { currentLng: req.language, userData: null });
     });
+
+    router.get("/apiPage", optionalAuth, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        res.render("pages/apiPage", { 
+            currentLng: req.language, 
+            userData: userData ?? null // дані користувача або null, якщо гість);
+        })
+    });
     
 export default router;

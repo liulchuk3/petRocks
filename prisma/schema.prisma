@@ -30,9 +30,6 @@ model Items {
   price         Decimal      @db.Decimal(10, 2)
   discountPrice Decimal?     @db.Decimal(10, 2)
 
-  ownerId       String
-  owner         User         @relation(fields: [ownerId], references: [id])
-
   stock         Int          @default(1)
   isActive      Boolean      @default(true)
   imageUrl      String
@@ -52,7 +49,6 @@ model User {
   username      String?
   imageUrl      String?
   refreshTokens RefreshToken[]
-  items         Items[]
   cartItems     CartItem[]
   orders        Order[]        // замовлення користувача
   createdAt     DateTime       @default(now())

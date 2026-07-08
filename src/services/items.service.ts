@@ -22,8 +22,7 @@ const items = await prisma.items.findMany({
     price: true, 
     discountPrice: true, 
     imageUrl: true, 
-    slug: true, 
-    owner: { select: { role: true } } //
+    slug: true,
   },
 });
 
@@ -41,8 +40,7 @@ const hitItemsService = items.sort(() => Math.random() - 0.5);
     price: true, 
     discountPrice: true, 
     imageUrl: true, 
-    slug: true, 
-    owner: { select: { role: true } } 
+    slug: true,
   },
 });
   return { hitItems: hitItemsService, newItems: newItemsService };
@@ -89,7 +87,6 @@ export const getAllItemsForCatalogService = async (options: CatalogQueryOptions 
       isActive: true,
       imageUrl: true,
       slug: true,
-      owner: { select: { role: true } }
     }
   });
 
@@ -115,7 +112,6 @@ export const getItemBySlugService = async (slug: string) => {
       description: true,
       imageUrl: true,
       slug: true,
-      owner: { select: { role: true } }
     }
   });
 }
@@ -133,13 +129,12 @@ export const getItemByIdService = async (itemId: string) => {
       imageUrl: true,
       slug: true,
       isActive: true,
-      owner: { select: { role: true } }
     }
   });
 };
 
 // Create a new item (Admin only)
-export const createAdminItemService = async (data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number; ownerId: string }, imageFile: Express.Multer.File) => {
+export const createAdminItemService = async (data: { "name-uk": string; "name-en": string; "description-uk": string; "description-en": string; price: number }, imageFile: Express.Multer.File) => {
   try {
     const imageUrl = await compressAndSave(imageFile);
     const slug = data["name-en"] // Генерація slug з назви товару
@@ -164,7 +159,6 @@ export const createAdminItemService = async (data: { "name-uk": string; "name-en
         sku,
         slug,
         imageUrl,
-        ownerId: data.ownerId,
       },
     });
 

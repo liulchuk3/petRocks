@@ -38,12 +38,12 @@
                 <h2 class="footer-heading"><%= t('global.other-actions') %></h2>
                 <% if (userData) { %>
                     <a class="footer-btn btn-admin" href="/<%= currentLng %>/admin">Admin</a>
-                    <a class="footer-btn" href="/<%= currentLng %>/api-page"><%= t('global.apiPage') %></a>
+                    <a class="footer-btn" href="/<%= currentLng %>/apiPage"><%= t('global.apiPage') %></a>
                     <button id="logout-btn-footer" class="footer-btn footer-btn--logout logout-btn"><%= t('global.logout') %></button>
                     
                 <% } else { %>
                     <a class="footer-btn btn-login" href="/<%= currentLng %>/authorization-sign-in"><%= t('global.login') %></a>
-                    <a class="footer-btn" href="/<%= currentLng %>/api-page"><%= t('global.apiPage') %></a>
+                    <a class="footer-btn" href="/<%= currentLng %>/apiPage"><%= t('global.apiPage') %></a>
                 <% } %>
             </div>
         </div>
