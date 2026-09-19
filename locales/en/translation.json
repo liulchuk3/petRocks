@@ -125,6 +125,23 @@
         "how-to-care": "How to Care for Your Pet Rock",
         "care-instructions": "Pet rocks are low-maintenance companions. Keep them clean by gently wiping with a damp cloth. Avoid dropping them to prevent chipping. Display them in a dry area away from direct sunlight to maintain their color and finish.",
         "more-rocks": "More Rocks"
+    },
+    "errorPages": {
+        "401": {
+            "title": "401 Unauthorized",
+            "message": "You are not authorized to access this page.",
+            "back-to-home": "Go back to home"
+        },
+        "403": {
+            "title": "403 Forbidden",
+            "message": "You do not have permission to access this page.",
+            "back-to-home": "Go back to home"
+        },
+        "404": {
+            "title": "404 Not Found",
+            "message": "The page you are looking for does not exist.",
+            "back-to-home": "Go back to home"
+        }
     }
 
 }

@@ -8,7 +8,10 @@ import pagesRoutes from "./routes/pages.routes.js";
 import authRoutes from './routes/auth.routes.js';
 import apiRoutes from './routes/api.routes.js';
 import { syncLangWithUrl } from "./middleware/lang-sync.middleware.js";
+import { AuthRequest, optionalAuth } from './middleware/auth.middleware.js';
 import { Request, Response, NextFunction } from 'express';
+import { getShortUserData } from './services/getUserData.service.js';
+
 
 const app = express();
 
@@ -65,6 +68,14 @@ app.use("/:lng", pagesRoutes);
 app.use('/auth', authRoutes);
 
 app.use('/api', apiRoutes);
+
+app.use(optionalAuth, async (req: AuthRequest, res: Response) => {
+  const userData = req.userId ? await getShortUserData(req.userId) : null;
+  return res.status(404).render('errorPages/404', {
+    currentLng: req.language,
+    userData: userData
+  });
+});
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err.code === 'LIMIT_FILE_SIZE') {

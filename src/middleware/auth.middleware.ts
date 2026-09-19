@@ -5,6 +5,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyAccess, verifyRefresh, signAccess, signRefresh } from '../utils/jwt.js';
 import { prisma } from '../lib/prisma.js';
+import { getShortUserData } from '../services/getUserData.service.js';
 
 export interface AuthRequest extends Request { // Розширюємо Request, додаючи userId
   userId?: string;
@@ -78,14 +79,20 @@ export const requireAuth = async (req: AuthRequest, res: Response, next: NextFun
   // accessToken протух або відсутній — пробуємо refreshToken
   const refreshToken = req.cookies?.refreshToken;
   if (!refreshToken) {
-    return res.status(401).json({ error: 'Unauthorized' }); // нема нічого — відмова
+    return res.status(401).render('errorPages/401', {
+      currentLng: req.language,
+      userData: null
+    }); // нема нічого — відмова
   }
 
   try {
     const { userId } = verifyRefresh(refreshToken);
 
     const stored = await prisma.refreshToken.findUnique({ where: { token: refreshToken } });
-    if (!stored) return res.status(401).json({ error: 'Unauthorized' }); // токен відкликаний
+    if (!stored) return res.status(401).render('errorPages/401', {
+      currentLng: req.language,
+      userData: null
+    }); // токен відкликаний
 
     // Rotation
     await prisma.refreshToken.delete({ where: { token: refreshToken } });
@@ -99,7 +106,10 @@ export const requireAuth = async (req: AuthRequest, res: Response, next: NextFun
     req.userId = userId;
     next();
   } catch {
-    return res.status(401).json({ error: 'Unauthorized' }); // refreshToken невалідний
+    return res.status(401).render('errorPages/401', {
+      currentLng: req.language,
+      userData: null
+    }); // refreshToken невалідний
   }
 };
 
@@ -112,7 +122,11 @@ export const requireAdmin = async (req: AuthRequest, res: Response, next: NextFu
   });
 
   if (!user || user.role !== 'ADMIN') {
-    return res.status(403).render('errorPages/403'); // 403, а не 401!
+    const userData = req.userId ? await getShortUserData(req.userId) : null;
+      return res.status(403).render('errorPages/403', {
+        currentLng: req.language,
+        userData: userData
+      });
   }
 
   next();

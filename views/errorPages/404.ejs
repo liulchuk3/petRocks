@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../partials/headLinks') %>
-    <title><%= t('errorPages.403.title') %></title>
-    <%- include('../partials/headLinks') %>
     <link rel="stylesheet" href="/css/error.css">
+    <title><%= t('errorPages.404.title') %></title>
 </head>
 <body>
     <%- include('../partials/header') %>
     <%- include('../partials/sidebar') %>
     <div class="error-page">
-        <h1><%= t('errorPages.403.title') %></h1>
-        <p><%= t('errorPages.403.message') %></p>
-        <a href="/"><%= t('errorPages.403.back-to-home') %></a>
+        <h1><%= t('errorPages.404.title') %></h1>
+        <p><%= t('errorPages.404.message') %></p>
+        <a href="/"><%= t('errorPages.404.back-to-home') %></a>
     </div>
     <%- include('../partials/footer') %>
     <script src="/js/index.js" type="module"></script>
