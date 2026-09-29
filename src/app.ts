@@ -65,6 +65,7 @@ app.get("/", (req, res) => {
 
 app.use("/:lng", pagesRoutes);
 
+app.use("/:lng/auth", syncLangWithUrl, authRoutes);
 app.use('/auth', authRoutes);
 
 app.use('/api', apiRoutes);

@@ -65,7 +65,22 @@
         "dont-have-account": "Don't have an account?",
         "already-have-account": "Already have an account?",
         "sign-up-link": "Sign Up",
-        "sign-in-link": "Sign In"
+        "sign-in-link": "Sign In",
+        "forgot-password-link": "Forgot Password",
+        "forgot-password-heading": "Reset Password",
+        "forgot-password-instruction": "Enter your email to receive a password reset link.",
+        "forgot-password-button": "Send",
+        "remember-password": "Remember your password?",
+        "eyebrow": "PET ROCKS ACCOUNT",
+        "sign-in-description": "Welcome back. Sign in to continue.",
+        "sign-up-description": "Create an account and find your own pet rock.",
+        "fill-error": "Please fill in all fields.",
+        "invalid-email": "Enter a valid email address.",
+        "short-password": "Password must be at least 8 characters long.",
+        "password-mismatch": "The passwords do not match.",
+        "network-error": "Network problem. Please try again.",
+        "form-error": "Could not complete the request. Check your details and try again.",
+        "forgot-password-success": "If this email is registered, we have sent a message with further instructions."
     },
     "admin": {
         "back-to-admin": "Back to Admin Panel",
@@ -125,6 +140,21 @@
         "how-to-care": "How to Care for Your Pet Rock",
         "care-instructions": "Pet rocks are low-maintenance companions. Keep them clean by gently wiping with a damp cloth. Avoid dropping them to prevent chipping. Display them in a dry area away from direct sunlight to maintain their color and finish.",
         "more-rocks": "More Rocks"
+    },
+    "passwordReset": {
+        "eyebrow": "PET ROCKS ACCOUNT",
+        "heading": "Create a new password",
+        "description": "Choose a strong password to regain access to your account.",
+        "new-password": "New password",
+        "new-password-placeholder": "At least 8 characters",
+        "confirm-password": "Confirm password",
+        "confirm-password-placeholder": "Enter your password again",
+        "submit": "Save new password",
+        "back-to-sign-in": "Back to sign in",
+        "password-mismatch": "The passwords do not match. Check both fields.",
+        "request-failed": "Could not change the password.",
+        "success": "Password changed successfully.",
+        "network-error": "Could not reach the server. Please try again."
     },
     "errorPages": {
         "401": {

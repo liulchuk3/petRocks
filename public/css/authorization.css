@@ -1,56 +1,259 @@
-main{
-    height: 100%;
-    background-color: var(--header-bg-color);
-    padding: 150px 0 0 0;
+:root {
+    --auth-accent: #679b25;
+    --auth-accent-deep: #416b16;
+    --auth-line: rgba(67, 89, 54, 0.18);
+    --auth-panel: var(--card-bg-color, #fff);
 }
-header{
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 12% 18%, rgba(122, 172, 63, 0.15), transparent 34%),
+        radial-gradient(ellipse at 88% 78%, rgba(226, 164, 83, 0.13), transparent 31%),
+        var(--body-bg-color, #f7f8f4);
+}
+
+header {
     background-color: var(--header-bg-color);
     box-shadow: none;
 }
-body{
-    background-color: var(--header-bg-color);
-}
-.authorization-title{
-    margin-bottom: 10px;
-    text-align: center;     
-    font-size: 24px;
-}
-.authorization-form{
+
+main {
     display: flex;
+    min-height: min(760px, calc(100vh - 140px));
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    margin-bottom: 100px;
+    justify-content: center;
+    padding-top: 100px;
 }
-.authorization-form input{
-    width: 200px;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    color: var(--text-color);
-    background-color: var(--header-bg-color);
+
+.auth-panel {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 480px);
+    padding: clamp(28px, 6vw, 54px);
+    overflow: hidden;
+    color: var(--text-color, #3b4145);
+    background: var(--auth-panel);
+    border: 1px solid var(--auth-line);
+    border-radius: 12px;
+    box-shadow: 0 24px 70px rgba(40, 54, 32, 0.12);
+    animation: auth-arrive 520ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
-.authorization-form button{
-    width: fit-content;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    background-color: var(--text-color-hover);
-    color: var(--header-bg-color);
-    cursor: pointer;
+
+.auth-panel::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    content: "";
+    background: linear-gradient(90deg, #699c26 0 58%, #e4a34f 58% 100%);
 }
-.authorization-form button:hover{
-    background-color: var(--text-color);
+
+.auth-eyebrow {
+    margin-bottom: 15px;
+    color: var(--auth-accent-deep);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
 }
-.authorization-sign-up{
-    margin-top: 20px;
-}
-.authorization-sign-up p{
-    text-align: center;
+
+.authorization-title {
+    max-width: 14ch;
     margin: 0;
+    color: var(--text-color-hover, #252a2d);
+    font-size: clamp(30px, 8vw, 42px);
+    font-weight: 800;
+    line-height: 1.08;
+    text-align: left;
 }
-.authorization-sign-up a{
-    color: var(--text-color);
-    text-align: center;
-    display: block;
+
+.auth-description,
+.authorization-instruction {
+    width: auto;
+    max-width: 40ch;
+    margin: 15px 0 28px;
+    color: var(--text-color, #59615b);
+    font-size: 15px;
+    line-height: 1.65;
+    text-align: left;
+}
+
+.authorization-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.auth-label {
     margin-top: 5px;
+    color: var(--text-color-hover, #252a2d);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.auth-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 15px;
+    color: var(--text-color-hover, #252a2d);
+    background: var(--body-bg-color, #fafafa);
+    border: 1px solid var(--auth-line);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.auth-input::placeholder {
+    color: color-mix(in srgb, var(--text-color, #59615b) 62%, transparent);
+}
+
+.auth-input:focus {
+    background: var(--auth-panel);
+    border-color: var(--auth-accent);
+    box-shadow: 0 0 0 3px rgba(103, 155, 37, 0.17);
+}
+
+.auth-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 12px;
+    padding: 0 18px;
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    background: var(--auth-accent);
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+
+.auth-submit:hover:not(:disabled) {
+    background: var(--auth-accent-deep);
+    transform: translateY(-1px);
+}
+
+.auth-submit:focus-visible,
+.auth-panel a:focus-visible {
+    outline: 3px solid rgba(103, 155, 37, 0.38);
+    outline-offset: 3px;
+}
+
+.auth-submit:disabled {
+    cursor: wait;
+    opacity: 0.78;
+}
+
+.auth-spinner {
+    display: none;
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: auth-spin 700ms linear infinite;
+}
+
+.authorization-form[data-loading="true"] .auth-spinner {
+    display: block;
+}
+
+.form-error {
+    margin: 7px 0 0;
+    padding: 12px 14px;
+    color: #963d36;
+    font-size: 14px;
+    line-height: 1.5;
+    background: rgba(190, 75, 63, 0.09);
+    border: 1px solid rgba(190, 75, 63, 0.24);
+    border-radius: 6px;
+}
+
+.form-error[hidden] {
+    display: none;
+}
+
+.form-error[data-state="success"] {
+    color: #426f1a;
+    background: rgba(103, 155, 37, 0.1);
+    border-color: rgba(103, 155, 37, 0.25);
+}
+
+.auth-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px 8px;
+    margin-top: 23px;
+    padding-top: 19px;
+    border-top: 1px solid var(--auth-line);
+    text-align: center;
+}
+
+.auth-switch p {
+    margin: 0;
+    color: var(--text-color, #59615b);
+}
+
+.auth-switch a,
+.auth-links a {
+    color: var(--auth-accent-deep);
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+.auth-links {
+    margin-top: 17px;
+    text-align: right;
+}
+
+.authorization-sign-up,
+.authorization-forgot-password {
+    display: none;
+}
+
+@keyframes auth-arrive {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auth-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    main {
+        min-height: auto;
+        padding-top: 88px;
+        padding-bottom: 54px;
+    }
+
+    .auth-panel {
+        padding: 29px 23px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-panel,
+    .auth-spinner {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+
+    .auth-input,
+    .auth-submit {
+        transition: none;
+    }
 }

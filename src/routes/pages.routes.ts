@@ -121,12 +121,24 @@ const router = Router();
         res.render("pages/authorization-sign-up", { currentLng: req.language, userData: null });
     });
 
+    router.get("/authorization-forgot-password", (req: AuthRequest, res) => {
+        res.render("pages/authorization-forgot-password", { currentLng: req.language, userData: null });
+    });
+
     router.get("/apiPage", optionalAuth, async (req: AuthRequest, res) => {
         const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const userCart = req.userId ? await getUserCartService(req.userId!) : { items: [], totalCount: 0 };
         res.render("pages/apiPage", { 
             currentLng: req.language, 
-            userData: userData ?? null // дані користувача або null, якщо гість);
-        })
+            userData: userData ?? null, // дані користувача або null, якщо гість
+            userCart: userCart // товари в кошику користувача
+        });
+    });
+
+    router.get("/test", requireAuth, requireAdmin, async (req: AuthRequest, res) => {
+        const userData = req.userId ? await getShortUserData(req.userId) : null;
+        const userCart = req.userId ? await getUserCartService(req.userId!) : { items: [], totalCount: 0 };
+        res.render("pages/test", { currentLng: req.language, userData: userData ?? null, userCart: userCart });
     });
     
 export default router;

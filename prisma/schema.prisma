@@ -45,6 +45,8 @@ model User {
   id            String         @id @default(cuid())
   email         String         @unique
   password      String
+  resetPasswordToken   String?   // Хеш токена скидання
+  resetPasswordExpires DateTime? // Час закінчення дії токена
   role          String         @default("USER")
   username      String?
   imageUrl      String?

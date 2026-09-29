@@ -5,31 +5,35 @@ const errorEl = document.getElementById('formError');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault(); // ← головне: блокуємо звичайну відправку форми
+  const messages = form.dataset;
+  const submitButton = form.querySelector('button[type="submit"]');
 
   const email = form.email.value.trim();
   const password = form.password.value;
   const confirmPassword = form.confirmPassword.value;
 
   // --- Валідація на фронті ---
-  errorEl.style.display = 'none';
+  errorEl.hidden = true;
 
   if (!email || !password || !confirmPassword) {
-    return showError('Заповніть усі поля');
+    return showError(messages.fillError);
   }
 
   if (!isValidEmail(email)) {
-    return showError('Невірний формат email');
+    return showError(messages.invalidEmail);
   }
 
   if (password.length < 8) {
-    return showError('Пароль має містити мінімум 8 символів');
+    return showError(messages.shortPassword);
   }
 
   if (password !== confirmPassword) {
-    return showError('Паролі не співпадають');
+    return showError(messages.passwordMismatch);
   }
 
   // --- Відправка на сервер ---
+  submitButton.disabled = true;
+  form.dataset.loading = 'true';
   try {
     const res = await fetch('/auth/register', {
       method: 'POST',
@@ -43,8 +47,14 @@ form.addEventListener('submit', async (e) => {
       const lang = getCookie('i18next') || 'UK'; // Отримуємо мову з куки або встановлюємо за замовчуванням 'UK'
       window.location.href = '/' + lang;
     }
+    else {
+      showError(messages.genericError);
+    }
   } catch (err) {
-    showError('Проблема з мережею. Спробуйте пізніше');
+    showError(messages.networkError);
+  } finally {
+    submitButton.disabled = false;
+    delete form.dataset.loading;
   }
 });
 
@@ -61,5 +71,6 @@ function isValidEmail(email) {
 
 function showError(message) {
   errorEl.textContent = message;
-  errorEl.style.display = 'block';
+  errorEl.dataset.state = 'error';
+  errorEl.hidden = false;
 }
